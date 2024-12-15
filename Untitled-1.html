@@ -4,222 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gato Bailando con Luces y Música</title>
-    <style>
-        /* Fondo con luces brillantes animadas y múltiples colores en 3D */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #000;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Efecto de luces brillando y fondo con colores en 3D */
-        .lights {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ffff00);
-            animation: colorAnimation 5s infinite alternate, lightAnimation 3s infinite ease-in-out;
-            z-index: -1;
-            background-size: 400% 400%;
-            transform: perspective(500px) rotateX(20deg);
-        }
-
-        @keyframes colorAnimation {
-            0% { background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ffff00); }
-            50% { background: linear-gradient(45deg, #ff0088, #00ff88, #0000ff, #ffaa00); }
-            100% { background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ffff00); }
-        }
-
-        @keyframes lightAnimation {
-            0% { background: radial-gradient(circle, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3)); }
-            50% { background: radial-gradient(circle, rgba(255, 0, 0, 0.3), rgba(0, 0, 0, 0.3)); }
-            100% { background: radial-gradient(circle, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3)); }
-        }
-
-        /* Estilo del contenedor central (más grande para el fondo) */
-        .container {
-            text-align: center;
-            z-index: 1;
-            max-width: 80%;  /* Asegura que el gato esté más centrado y con más espacio alrededor */
-        }
-
-        h1 {
-            font-size: 3rem;
-            font-weight: bold;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-            margin-bottom: 20px;
-            animation: textColorChange 4s infinite alternate; /* Animación de cambio de color */
-        }
-
-        @keyframes textColorChange {
-            0% { color: #ff0000; }
-            25% { color: #00ff00; }
-            50% { color: #0000ff; }
-            75% { color: #ffff00; }
-            100% { color: #ff0000; }
-        }
-
-        /* Estilo de la animación del gato */
-        .dance-cat {
-            width: 400px;  /* Hacemos que el gato sea más grande */
-            animation: dance 1s infinite;
-        }
-
-        @keyframes dance {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(10deg); }
-            50% { transform: rotate(0deg); }
-            75% { transform: rotate(-10deg); }
-            100% { transform: rotate(0deg); }
-        }
-
-        /* Lluvia de estrellas doradas */
-        .stars {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .star {
-            position: absolute;
-            background-color: gold;
-            border-radius: 50%;
-            animation: fall 3s infinite ease-in;
-        }
-
-        @keyframes rain {
-            0% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        @keyframes fall {
-            0% { top: -10px; opacity: 1; }
-            100% { top: 100vh; opacity: 0; }
-        }
-
-        /* Animación de rayos */
-        .lightning {
-            position: absolute;
-            width: 2px;
-            height: 100vh;
-            background-color: #fff;
-            opacity: 0;
-            animation: lightningStrike 0.3s linear infinite;
-        }
-
-        @keyframes lightningStrike {
-            0% { opacity: 0; transform: scaleY(1); }
-            50% { opacity: 1; transform: scaleY(10); }
-            100% { opacity: 0; transform: scaleY(1); }
-        }
-
-        /* Luces láser */
-        .laser {
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            background-color: rgba(255, 0, 0, 0.8);
-            animation: laserHorizontal 0.5s linear infinite, laserVertical 0.7s linear infinite, laserDiagonal 0.9s linear infinite;
-            z-index: -1;
-        }
-
-        .laser:nth-child(1) {
-            top: 20%;
-            background-color: rgba(255, 0, 0, 0.8);
-            animation: laserHorizontal 0.5s linear infinite;
-        }
-
-        .laser:nth-child(2) {
-            top: 40%;
-            background-color: rgba(0, 255, 0, 0.8);
-            animation: laserVertical 0.7s linear infinite;
-        }
-
-        .laser:nth-child(3) {
-            top: 60%;
-            background-color: rgba(0, 0, 255, 0.8);
-            animation: laserDiagonal 0.9s linear infinite;
-        }
-
-        .laser:nth-child(4) {
-            top: 80%;
-            background-color: rgba(255, 255, 0, 0.8);
-            animation: laserHorizontal 0.4s linear infinite;
-        }
-
-        @keyframes laserHorizontal {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        @keyframes laserVertical {
-            0% { top: -100%; }
-            100% { top: 100%; }
-        }
-
-        @keyframes laserDiagonal {
-            0% { top: -100%; left: -100%; }
-            100% { top: 100%; left: 100%; }
-        }
-
-        /* Música de fondo */
-        audio {
-            display: none;
-        }
-
-    </style>
+    <link rel="stylesheet" href="css/style.css">  <!-- Aquí asignamos el archivo CSS -->
 </head>
 <body>
-    <div class="lights"></div>
     <div class="container">
-        <h1>¡Feliz Navidad!</h1> <!-- Texto actualizado a Feliz Navidad -->
-        <img src="https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif" alt="Gato Bailando" class="dance-cat">
+        <h1>¡Feliz Navidad!</h1>
+        <!-- GIF del gato -->
+        <img src="assets/gato-bailando.gif" alt="Gato Bailando" class="dance-cat">
+
+        <!-- Música de fondo -->
+        <audio id="audio" loop>
+            <source src="assets/dj-vanny-boy-r.mp3" type="audio/mp3">
+            Tu navegador no soporta la etiqueta de audio.
+        </audio>
+
+        <!-- Botón de Play (Corazón Rojo) -->
+        <button class="audio-button play-button" onclick="toggleAudio(true)">
+            <img class="heart-icon" src="assets/heart-icon.png" alt="Corazón Rojo">
+            Presionar Aquí
+        </button>
+
+        <!-- Botón de Stop (Corazón Roto) -->
+        <button class="audio-button pause-button" onclick="toggleAudio(false)">
+            <img class="heart-icon" src="assets/heart-break-icon.png" alt="Corazón Roto">
+            Detener Música
+        </button>
+
+        <p id="audioStatus">Estado del audio: No Reproducido</p>
     </div>
 
-    <!-- Lluvia de estrellas doradas -->
-    <div class="stars">
-        <!-- Generar más estrellas grandes -->
-        <div class="star" style="width: 10px; height: 10px; left: 5%; animation-duration: 3s; animation-delay: 0s;"></div>
-        <div class="star" style="width: 12px; height: 12px; left: 15%; animation-duration: 2.5s; animation-delay: 1s;"></div>
-        <div class="star" style="width: 14px; height: 14px; left: 25%; animation-duration: 3s; animation-delay: 0.5s;"></div>
-        <div class="star" style="width: 16px; height: 16px; left: 35%; animation-duration: 3.5s; animation-delay: 1.2s;"></div>
-        <div class="star" style="width: 18px; height: 18px; left: 45%; animation-duration: 2s; animation-delay: 0s;"></div>
-        <div class="star" style="width: 20px; height: 20px; left: 55%; animation-duration: 4s; animation-delay: 1.5s;"></div>
-        <div class="star" style="width: 22px; height: 22px; left: 65%; animation-duration: 3s; animation-delay: 0.3s;"></div>
-        <div class="star" style="width: 10px; height: 10px; left: 75%; animation-duration: 2.8s; animation-delay: 0.8s;"></div>
-        <div class="star" style="width: 12px; height: 12px; left: 85%; animation-duration: 4s; animation-delay: 1.2s;"></div>
-        <div class="star" style="width: 14px; height: 14px; left: 95%; animation-duration: 2.5s; animation-delay: 1s;"></div>
-    </div>
+    <script>
+        var audio = document.getElementById('audio');
+        var playButton = document.querySelector('.play-button');
+        var pauseButton = document.querySelector('.pause-button');
+        var audioStatus = document.getElementById('audioStatus');
 
-    <!-- Rayos que se activan aleatoriamente -->
-    <div class="lightning" style="left: 20%; animation-delay: 0s;"></div>
-    <div class="lightning" style="left: 50%; animation-delay: 1s;"></div>
-    <div class="lightning" style="left: 80%; animation-delay: 2s;"></div>
-    <div class="lightning" style="left: 30%; animation-delay: 3s;"></div>
+        function toggleAudio(isPlay) {
+            if (isPlay) {
+                audio.play();
+                audioStatus.textContent = "Estado del audio: Reproduciendo";
+                playButton.style.display = "none"; // Ocultar el botón de play
+                pauseButton.style.display = "inline-block"; // Mostrar el botón de stop
+            } else {
+                audio.pause();
+                audioStatus.textContent = "Estado del audio: Pausado";
+                playButton.style.display = "inline-block"; // Mostrar el botón de play
+                pauseButton.style.display = "none"; // Ocultar el botón de stop
+            }
+        }
 
-    <!-- Luces láser en el fondo -->
-    <div class="laser"></div>
-    <div class="laser"></div>
-    <div class="laser"></div>
-    <div class="laser"></div>
-
-    <!-- Música de fondo -->
-    <audio autoplay loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
-        Tu navegador no soporta la etiqueta de audio.
-    </audio>
+        // Si el archivo MP3 no se carga correctamente
+        audio.onerror = function() {
+            audioStatus.textContent = "Estado del audio: Error al cargar el archivo MP3";
+        };
+    </script>
 </body>
 </html>
