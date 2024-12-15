@@ -36,41 +36,30 @@
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
             animation: colorChange 1s infinite ease-in-out;
             z-index: 1;
+            margin-bottom: 20px;
         }
 
-        /* Efecto de cambio de colores rápido */
         @keyframes colorChange {
-            0% {
-                color: #ff0000; /* Rojo */
-            }
-            20% {
-                color: #ff7300; /* Naranja */
-            }
-            40% {
-                color: #00ff00; /* Verde */
-            }
-            60% {
-                color: #0000ff; /* Azul */
-            }
-            80% {
-                color: #800080; /* Morado */
-            }
-            100% {
-                color: #ff0000; /* Regresa a Rojo */
-            }
+            0% { color: #ff0000; }
+            20% { color: #ff7300; }
+            40% { color: #00ff00; }
+            60% { color: #0000ff; }
+            80% { color: #800080; }
+            100% { color: #ff0000; }
         }
 
         .container {
             position: relative;
             z-index: 2;
             text-align: center;
-            max-width: 800px;
+            max-width: 100%;
             margin: auto;
+            padding: 20px;
         }
 
         video {
             width: 100%;
-            max-width: 800px;
+            max-width: 100%;
             border-radius: 10px;
             margin-top: 20px;
             display: block;
@@ -83,7 +72,7 @@
             display: flex;
             justify-content: center;
             gap: 10px;
-            flex-direction: row;
+            flex-wrap: wrap;
             z-index: 3;
         }
 
@@ -117,8 +106,7 @@
             background-color: #218838;
         }
 
-        /* Estilo para la nieve */
-        .snow {
+        .snow, .stars {
             position: absolute;
             top: 0;
             left: 0;
@@ -128,49 +116,76 @@
             z-index: -2;
         }
 
-        .snowflake {
+        .snowflake, .star {
             position: absolute;
             background-color: white;
             border-radius: 50%;
             opacity: 0.8;
-            animation: snow 0.5s linear infinite;
-            animation-timing-function: linear;
-        }
-
-        @keyframes snow {
-            0% {
-                transform: translateY(-50px) translateX(0);
-            }
-            100% {
-                transform: translateY(100vh) translateX(100px);
-            }
-        }
-
-        /* Estilo para las estrellas */
-        .stars {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
+            animation: snow 0.5s linear infinite, starFall 2s linear infinite;
         }
 
         .star {
-            position: absolute;
             background-color: #FFD700; /* Color dorado */
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: starFall 2s linear infinite;
+        }
+
+        @keyframes snow {
+            0% { transform: translateY(-50px) translateX(0); }
+            100% { transform: translateY(100vh) translateX(100px); }
         }
 
         @keyframes starFall {
-            0% {
-                transform: translateY(-100px) translateX(0);
+            0% { transform: translateY(-100px) translateX(0); }
+            100% { transform: translateY(100vh) translateX(50px); }
+        }
+
+        /* Estilos para pantallas pequeñas */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
             }
-            100% {
-                transform: translateY(100vh) translateX(50px);
+
+            .video-controls {
+                font-size: 1rem;
+                gap: 8px;
+            }
+
+            .video-button {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+            }
+
+            .change-page-btn {
+                font-size: 1.2rem;
+                padding: 8px 16px;
+            }
+        }
+
+        /* Estilos para pantallas extra pequeñas */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 10px;
+            }
+
+            .video-controls {
+                font-size: 0.9rem;
+                gap: 5px;
+            }
+
+            .video-button {
+                width: 30px;
+                height: 30px;
+                font-size: 1rem;
+            }
+
+            .change-page-btn {
+                font-size: 1rem;
+                padding: 6px 12px;
+            }
+
+            video {
+                max-width: 95%;
             }
         }
     </style>
@@ -185,8 +200,7 @@
 
         <!-- Video con URL -->
         <video id="video" loop autoplay>
-            <!-- Aquí puedes colocar la URL de tu video -->
-            <source src="https://download1655.mediafire.com/vujruotbbmmgcelhseR8rRtn7mvaA4DQlkXzpxagQN_AxyRN2IOD7Aizb-MKe6M2NF9MjB1dg5dE6pSIgWTwYtJ7gZYot5x1vOEHox19d5ARdATsG_94OGx6qSSN6ig7FisKn7rWv7ivBQ9LGpwQUMHoO_fOfpPUySTKBvRiqMf7MuY/fv6oeudf0dj2nj9/videomix-90s-flashback.mp4" type="video/mp4">
+            <source src="https://download1655.mediafire.com/9xlax0qng8sgUH3vpw_5ZJx6Qmc9Pu4v9cbEwarzwzBfMaV6Hk4rZFRAOYieIouSpdF3o9HvNqqV2oGnbltXcBPY3qOXvexa8hl4FK45qyx7sqvyAilSK0vLvxeGRHYEGQkq2vCUJvi-GJy2hDB3zz6Z2_niII4-EF9lSOV2FBcWthA/fv6oeudf0dj2nj9/videomix-90s-flashback.mp4" type="video/mp4">
             Tu navegador no soporta la etiqueta de video.
         </video>
 
@@ -230,9 +244,6 @@
 
             <div class="progress-container">
                 <input type="range" id="progress" value="0" max="100" step="0.1" onchange="changeProgress(this.value)">
-                <div class="progress-bar">
-                    <div class="progress"></div>
-                </div>
             </div>
 
             <div class="time-display" id="timeDisplay">00:00 / 00:00</div>
@@ -257,8 +268,8 @@
 
         // Lista de videos para reproducir secuencialmente
         const videos = [
+            "https://download1655.mediafire.com/9xlax0qng8sgUH3vpw_5ZJx6Qmc9Pu4v9cbEwarzwzBfMaV6Hk4rZFRAOYieIouSpdF3o9HvNqqV2oGnbltXcBPY3qOXvexa8hl4FK45qyx7sqvyAilSK0vLvxeGRHYEGQkq2vCUJvi-GJy2hDB3zz6Z2_niII4-EF9lSOV2FBcWthA/fv6oeudf0dj2nj9/videomix-90s-flashback.mp4",
             "https://www.example.com/videos/90s-techno-pop-video-mix-by-dj-soundhunter.mp4",
-            "https://www.example.com/videos/videomix-90s-flashback.mp4",
             "https://www.example.com/videos/another-video.mp4"
         ];
 
@@ -317,7 +328,7 @@
         function previousVideo() {
             currentVideoIndex--;
             if (currentVideoIndex < 0) {
-                currentVideoIndex = videos.length - 1; // Vuelve al último video si se está en el primero
+                currentVideoIndex = videos.length - 1;
             }
             video.src = videos[currentVideoIndex];
             video.load();
@@ -345,23 +356,8 @@
         function changeProgress(value) {
             video.currentTime = (video.duration * value) / 100;
         }
-
-        // Crear las estrellas doradas
-        function createStars() {
-            for (let i = 0; i < 100; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                star.style.width = `${Math.random() * 5 + 2}px`;
-                star.style.height = star.style.width;
-                star.style.top = `${Math.random() * -100}px`;
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.animationDuration = `${Math.random() * 3 + 2}s`;
-                document.getElementById('stars').appendChild(star);
-            }
-        }
-
-        createStars();
     </script>
 </body>
 
 </html>
+
