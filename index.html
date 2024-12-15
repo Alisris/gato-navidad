@@ -4,263 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gato Bailando con Luces y Música</title>
-
-    <!-- Meta etiquetas para el GIF cuando se comparte el enlace -->
     <meta property="og:image" content="https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif">
     <meta property="og:title" content="Gato Bailando con Luces y Música">
     <meta property="og:description" content="Disfruta de un gato bailando con luces y música navideña. ¡Feliz Navidad!">
-    
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #000;
-            overflow-y: scroll;  /* Esto agrega la barra de desplazamiento */
-            position: relative;
-        }
-
-        .stars {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0));
-            animation: starAnimation 1.5s infinite linear;
-            z-index: -2;
-        }
-
-        @keyframes starAnimation {
-            0% { background: radial-gradient(circle, rgba(255, 0, 0, 0.5), rgba(0, 0, 0, 0)); }
-            25% { background: radial-gradient(circle, rgba(0, 255, 0, 0.5), rgba(0, 0, 0, 0)); }
-            50% { background: radial-gradient(circle, rgba(0, 0, 255, 0.5), rgba(0, 0, 0, 0)); }
-            75% { background: radial-gradient(circle, rgba(255, 255, 0, 0.5), rgba(0, 0, 0, 0)); }
-            100% { background: radial-gradient(circle, rgba(255, 0, 255, 0.5), rgba(0, 0, 0, 0)); }
-        }
-
-        .laser {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            transform: translate(-50%, -50%) perspective(1000px);
-            z-index: -1;
-        }
-
-        .laser div {
-            position: absolute;
-            width: 2px;
-            height: 100%;
-            background: linear-gradient(45deg, red, yellow, blue, green, purple);
-            animation: laserAnimation 1s infinite linear, laserReplica 1.5s infinite linear;
-            transform-origin: center;
-        }
-
-        @keyframes laserAnimation {
-            0% { transform: rotate(0deg) scale(1); }
-            100% { transform: rotate(360deg) scale(1.1); }
-        }
-
-        @keyframes laserReplica {
-            0% { opacity: 0.5; }
-            25% { opacity: 0.7; }
-            50% { opacity: 1; }
-            75% { opacity: 0.7; }
-            100% { opacity: 0.5; }
-        }
-
-        .snow {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -3;
-        }
-
-        .snow .flake {
-            position: absolute;
-            top: -10px;
-            width: 5px;
-            height: 5px;
-            background-color: white;
-            border-radius: 50%;
-            animation: snowAnimation 1s linear infinite;
-            opacity: 0.8;
-        }
-
-        @keyframes snowAnimation {
-            0% { transform: translateY(-10px); }
-            100% { transform: translateY(100vh); }
-        }
-
-        h1 {
-            font-size: 4rem;
-            color: #fff;
-            text-align: center;
-            font-weight: bold;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-            animation: colorChange 3s infinite ease-in-out;
-            z-index: 1;
-        }
-
-        @keyframes colorChange {
-            0% { color: red; }
-            25% { color: green; }
-            50% { color: blue; }
-            75% { color: yellow; }
-            100% { color: pink; }
-        }
-
-        .container {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-        }
-
-        .dance-cat {
-            width: 60vw;  /* Ajuste para pantallas móviles */
-            max-width: 400px;
-            animation: dance 1s infinite;
-            z-index: 2;
-        }
-
-        @keyframes dance {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(10deg); }
-            50% { transform: rotate(0deg); }
-            75% { transform: rotate(-10deg); }
-            100% { transform: rotate(0deg); }
-        }
-
-        audio {
-            display: none;
-        }
-
-        .audio-controls {
-            margin-top: 10px;
-            font-size: 1.2rem;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-direction: column;
-        }
-
-        .audio-button {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #fff;
-            padding: 10px;
-            width: 50px;  /* Botones más grandes en móviles */
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 10px;
-        }
-
-        .audio-button img {
-            width: 30px;  /* Ajuste para la imagen del corazón */
-            height: 30px;
-        }
-
-        .play-button {
-            color: #ff0000; 
-        }
-
-        .pause-button {
-            color: #808080;
-        }
-
-        .audio-controls button {
-            display: inline-flex;
-            align-items: center;
-        }
+        body{margin:0;padding:0;font-family:Arial,sans-serif;display:flex;justify-content:center;align-items:center;height:100vh;background-color:#000;overflow-y:scroll;position:relative} 
+        .stars,.laser,.snow{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-2}
+        .stars{background:radial-gradient(circle,rgba(255,255,255,0.5),rgba(0,0,0,0));animation:starAnimation 1.5s infinite linear} 
+        .laser{top:50%;left:50%;transform:translate(-50%,-50%)perspective(1000px);z-index:-1}
+        .snow{pointer-events:none;z-index:-3}
+        .snow .flake{position:absolute;width:5px;height:5px;background-color:white;border-radius:50%;animation:snowAnimation 1s linear infinite;opacity:.8}
+        h1{font-size:4rem;color:#fff;text-align:center;font-weight:bold;text-shadow:0 0 15px rgba(255,255,255,.8);animation:colorChange 3s infinite ease-in-out;z-index:1}
+        .container{position:relative;text-align:center}
+        .dance-cat{width:60vw;max-width:400px;animation:dance 1s infinite;z-index:2}
+        audio{display:none}
+        .audio-controls{margin-top:10px;font-size:1.2rem;color:#fff;display:flex;justify-content:center;gap:20px;flex-direction:column}
+        .audio-button{background:none;border:none;font-size:1.5rem;cursor:pointer;color:#fff;padding:10px;width:50px;height:50px;display:flex;align-items:center;justify-content:center;margin-top:10px}
+        @keyframes starAnimation{0%{background:radial-gradient(circle,rgba(255,0,0,.5),rgba(0,0,0,0));}25%{background:radial-gradient(circle,rgba(0,255,0,.5),rgba(0,0,0,0));}50%{background:radial-gradient(circle,rgba(0,0,255,.5),rgba(0,0,0,0));}75%{background:radial-gradient(circle,rgba(255,255,0,.5),rgba(0,0,0,0));}100%{background:radial-gradient(circle,rgba(255,0,255,.5),rgba(0,0,0,0));}}
+        @keyframes laserAnimation{0%{transform:rotate(0deg)scale(1)}100%{transform:rotate(360deg)scale(1.1)}}
+        @keyframes snowAnimation{0%{transform:translateY(-10px)}100%{transform:translateY(100vh)}}
+        @keyframes colorChange{0%{color:red}25%{color:green}50%{color:blue}75%{color:yellow}100%{color:pink}}
+        @keyframes dance{0%{transform:rotate(0deg)}25%{transform:rotate(10deg)}50%{transform:rotate(0deg)}75%{transform:rotate(-10deg)}100%{transform:rotate(0deg)}}
     </style>
 </head>
 <body>
     <div class="snow"></div>
     <div class="stars"></div>
-    <div class="laser">
-        <div></div>
-    </div>
-
+    <div class="laser"><div></div></div>
     <div class="container">
         <h1>¡Feliz Navidad!</h1>
         <img id="danceCat" src="https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif" alt="Gato Bailando" class="dance-cat">
-        
-        <audio id="audio" loop autoplay>
-            <source src="dj-vanny-boy-r.mp3" type="audio/mp3">
-            Tu navegador no soporta la etiqueta de audio.
-        </audio>
-
+        <audio id="audio" loop autoplay><source src="dj-vanny-boy-r.mp3" type="audio/mp3">Tu navegador no soporta la etiqueta de audio.</audio>
         <div class="audio-controls">
-            <button class="audio-button play-button" onclick="toggleAudio(true)">
-                💔
-            </button>
-            <button class="audio-button pause-button" onclick="toggleAudio(false)" style="display: none;">
-                ❤
-            </button>
-
-
+            <button class="audio-button play-button" onclick="toggleAudio(true)">💔</button>
+            <button class="audio-button pause-button" onclick="toggleAudio(false)" style="display:none;">❤</button>
             <p id="audioStatus">Estado del audio: Reproduciendo</p>
         </div>
     </div>
-
     <script>
-        var audio = document.getElementById('audio');
-        var audioStatus = document.getElementById('audioStatus');
-        var playButton = document.querySelector('.play-button');
-        var pauseButton = document.querySelector('.pause-button');
-        var danceCat = document.getElementById('danceCat');
-
-        window.onload = function() {
-            playButton.style.display = "none";
-            pauseButton.style.display = "inline-block";
-        };
-
-        function toggleAudio(isPlay) {
-            if (isPlay) {
-                audio.play();
-                audioStatus.textContent = "Estado del audio: Reproduciendo";
-                playButton.style.display = "none";
-                pauseButton.style.display = "inline-block";
-                changeGif("https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif");  // GIF cuando se reproduce
-            } else {
-                audio.pause();
-                audioStatus.textContent = "Estado del audio: Pausado";
-                playButton.style.display = "inline-block";
-                pauseButton.style.display = "none";
-                changeGif("https://media.giphy.com/media/PdKTOwHgOASGY/giphy.gif");  // GIF cuando se pausa
-            }
-        }
-
-        function changeGif(url) {
-            danceCat.src = url;
-        }
-
-        function generateSnow() {
-            var snowContainer = document.querySelector('.snow');
-            for (var i = 0; i < 100; i++) {
-                var flake = document.createElement('div');
-                flake.classList.add('flake');
-                flake.style.left = Math.random() * 100 + 'vw';
-                flake.style.animationDuration = Math.random() * 3 + 2 + 's';
-                flake.style.animationDelay = Math.random() * 5 + 's';
-                snowContainer.appendChild(flake);
-            }
-        }
-
+        var audio=document.getElementById('audio'),audioStatus=document.getElementById('audioStatus'),playButton=document.querySelector('.play-button'),pauseButton=document.querySelector('.pause-button'),danceCat=document.getElementById('danceCat');
+        window.onload=function(){playButton.style.display="none";pauseButton.style.display="inline-block";};
+        function toggleAudio(isPlay){if(isPlay){audio.play();audioStatus.textContent="Estado del audio: Reproduciendo";playButton.style.display="none";pauseButton.style.display="inline-block";changeGif("https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif");}else{audio.pause();audioStatus.textContent="Estado del audio: Pausado";playButton.style.display="inline-block";pauseButton.style.display="none";changeGif("https://media.giphy.com/media/PdKTOwHgOASGY/giphy.gif");}}
+        function changeGif(url){danceCat.src=url;}
+        function generateSnow(){var snowContainer=document.querySelector('.snow');for(var i=0;i<100;i++){var flake=document.createElement('div');flake.classList.add('flake');flake.style.left=Math.random()*100+'vw';flake.style.animationDuration=Math.random()*3+2+'s';flake.style.animationDelay=Math.random()*5+'s';snowContainer.appendChild(flake);}}
         generateSnow();
     </script>
 </body>
