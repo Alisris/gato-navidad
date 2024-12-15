@@ -58,41 +58,46 @@
     </div>
 
     <script>
-        var _0x4eaf=["\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x42\x79\x49\x64","play","pause","textContent","display","style","none","inline-block","audio","audioStatus","play-button","pause-button","danceCat","src"];
-        var audio = document[_0x4eaf[0]]('audio');
-        var audioStatus = document[_0x4eaf[0]]('audioStatus');
-        var playButton = document.querySelector('.' + _0x4eaf[10]);
-        var pauseButton = document.querySelector('.' + _0x4eaf[11]);
-        var danceCat = document[_0x4eaf[0]]('danceCat');
+        // Variables y funciones críticas no ofuscadas
+        var audio = document.getElementById('audio');
+        var audioStatus = document.getElementById('audioStatus');
+        var playButton = document.querySelector('.play-button');
+        var pauseButton = document.querySelector('.pause-button');
+        var danceCat = document.getElementById('danceCat');
+
         window.onload = function() {
-            audio[_0x4eaf[1]]().then(function() {
-                audio.muted = false;
-                playButton[_0x4eaf[5]][_0x4eaf[6]] = _0x4eaf[6];
-                pauseButton[_0x4eaf[5]][_0x4eaf[7]] = _0x4eaf[8];
+            // Intentamos reproducir el audio automáticamente
+            audio.play().then(function() {
+                console.log("Audio reproducido automáticamente (muted).");
+                audio.muted = false;  // Desactivar el mute después de la reproducción automática
+                playButton.style.display = "none";
+                pauseButton.style.display = "inline-block";
             }).catch(function(error) {
-                playButton[_0x4eaf[5]][_0x4eaf[7]] = _0x4eaf[8];
-                pauseButton[_0x4eaf[5]][_0x4eaf[6]] = _0x4eaf[6];
+                console.log("No se pudo reproducir el audio automáticamente: " + error);
+                // Si la reproducción automática falla, dejamos que el usuario haga clic en Play
+                playButton.style.display = "inline-block";
+                pauseButton.style.display = "none";
             });
         };
 
         function toggleAudio(isPlay) {
             if (isPlay) {
                 audio.play();
-                audioStatus[_0x4eaf[3]] = "Estado del audio: Reproduciendo";
-                playButton[_0x4eaf[5]][_0x4eaf[6]] = _0x4eaf[6];
-                pauseButton[_0x4eaf[5]][_0x4eaf[7]] = _0x4eaf[8];
-                changeGif("https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif");
+                audioStatus.textContent = "Estado del audio: Reproduciendo";
+                playButton.style.display = "none";
+                pauseButton.style.display = "inline-block";
+                changeGif("https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif");  // GIF cuando se reproduce
             } else {
                 audio.pause();
-                audioStatus[_0x4eaf[3]] = "Estado del audio: Pausado";
-                playButton[_0x4eaf[5]][_0x4eaf[7]] = _0x4eaf[8];
-                pauseButton[_0x4eaf[5]][_0x4eaf[6]] = _0x4eaf[6];
-                changeGif("https://media.giphy.com/media/PdKTOwHgOASGY/giphy.gif");
+                audioStatus.textContent = "Estado del audio: Pausado";
+                playButton.style.display = "inline-block";
+                pauseButton.style.display = "none";
+                changeGif("https://media.giphy.com/media/PdKTOwHgOASGY/giphy.gif");  // GIF cuando se pausa
             }
         }
 
         function changeGif(url) {
-            danceCat[_0x4eaf[13]] = url;
+            danceCat.src = url;
         }
 
         function generateSnow() {
@@ -106,6 +111,7 @@
                 snowContainer.appendChild(flake);
             }
         }
+
         generateSnow();
     </script>
 </body>
