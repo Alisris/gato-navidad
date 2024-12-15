@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gato Bailando con Luces y Música</title>
+
+    <!-- Meta etiquetas para el GIF cuando se comparte el enlace -->
+    <meta property="og:image" content="https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif">
+    <meta property="og:title" content="Gato Bailando con Luces y Música">
+    <meta property="og:description" content="Disfruta de un gato bailando con luces y música navideña. ¡Feliz Navidad!">
+    
     <style>
         body {
             margin: 0;
@@ -193,7 +199,7 @@
         <h1>¡Feliz Navidad!</h1>
         <img id="danceCat" src="https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif" alt="Gato Bailando" class="dance-cat">
         
-        <audio id="audio" loop>
+        <audio id="audio" loop autoplay>
             <source src="dj-vanny-boy-r.mp3" type="audio/mp3">
             Tu navegador no soporta la etiqueta de audio.
         </audio>
@@ -209,7 +215,7 @@
                 ❤
             </button>
 
-            <p id="audioStatus">Estado del audio: No Reproducido</p>
+            <p id="audioStatus">Estado del audio: Reproduciendo</p>
         </div>
     </div>
 
@@ -221,8 +227,8 @@
         var danceCat = document.getElementById('danceCat');
 
         window.onload = function() {
-            playButton.style.display = "inline-block";
-            pauseButton.style.display = "none";
+            playButton.style.display = "none";
+            pauseButton.style.display = "inline-block";
         };
 
         function toggleAudio(isPlay) {
@@ -261,3 +267,4 @@
     </script>
 </body>
 </html>
+
