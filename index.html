@@ -15,11 +15,10 @@
     <meta property="og:description" content="Disfruta de gato bailando. ¡Feliz Navidad!">
     <meta property="og:url" content="https://alisris.github.io/gato-navidad/"> <!-- Aquí pon la URL donde estará el contenido -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="Disfruta de gato bailando. ¡Feliz Navidad!">
+    <meta name="twitter:image" content="https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif">
     <meta name="twitter:title" content="Disfruta de gato bailando. ¡Feliz Navidad!a">
     <meta name="twitter:description" content="Disfruta de gato bailando. ¡Feliz Navidad!">
 
-    
     <style>
         body {
             margin: 0;
@@ -209,12 +208,11 @@
         <h1>¡Feliz Navidad!</h1>
         <img id="danceCat" src="https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif" alt="Gato Bailando" class="dance-cat">
         
-        <audio id="audio" loop autoplay>
+        <audio id="audio" loop autoplay muted>
             <source src="dj-vanny-boy-r.mp3" type="audio/mp3">
             Tu navegador no soporta la etiqueta de audio.
         </audio>
 
-        
         <div class="audio-controls">
             <button class="audio-button play-button" onclick="toggleAudio(true)">
                 💔
@@ -234,9 +232,17 @@
         var pauseButton = document.querySelector('.pause-button');
         var danceCat = document.getElementById('danceCat');
 
+        // Al cargar la página, intenta reproducir el audio
         window.onload = function() {
-            playButton.style.display = "none";
-            pauseButton.style.display = "inline-block";
+            audio.play().then(() => {
+                // Desactivar mute si se pudo reproducir automáticamente
+                audio.muted = false;
+                playButton.style.display = "none";
+                pauseButton.style.display = "inline-block";
+            }).catch(() => {
+                // Si no se pudo reproducir, mantener el botón de reproducción visible
+                console.log("La reproducción automática fue bloqueada por el navegador.");
+            });
         };
 
         function toggleAudio(isPlay) {
