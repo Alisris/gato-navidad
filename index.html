@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Feliz Navidad!</title>
+    <title>Gato Bailando con Luces y Música</title>
 
     <!-- Meta etiquetas para el GIF cuando se comparte el enlace -->
     <meta property="og:image" content="https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif">
-    <meta property="og:title" content="¡Feliz Navidad!">
-    <meta property="og:description" content="¡Feliz Navidad!">
+    <meta property="og:title" content="Gato Bailando con Luces y Música">
+    <meta property="og:description" content="Disfruta de un gato bailando con luces y música navideña. ¡Feliz Navidad!">
     
     <style>
         body {
@@ -20,35 +20,32 @@
             align-items: center;
             height: 100vh;
             background-color: #000;
-            overflow-y: scroll;  /* Esto agrega la barra de desplazamiento */
+            overflow-y: scroll;
             position: relative;
         }
 
-        .stars {
+        .stars, .laser, .snow {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+        }
+
+        .stars {
             background: radial-gradient(circle, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0));
             animation: starAnimation 1.5s infinite linear;
             z-index: -2;
         }
 
         @keyframes starAnimation {
-            0% { background: radial-gradient(circle, rgba(255, 0, 0, 0.5), rgba(0, 0, 0, 0)); }
+            0%, 100% { background: radial-gradient(circle, rgba(255, 0, 0, 0.5), rgba(0, 0, 0, 0)); }
             25% { background: radial-gradient(circle, rgba(0, 255, 0, 0.5), rgba(0, 0, 0, 0)); }
             50% { background: radial-gradient(circle, rgba(0, 0, 255, 0.5), rgba(0, 0, 0, 0)); }
             75% { background: radial-gradient(circle, rgba(255, 255, 0, 0.5), rgba(0, 0, 0, 0)); }
-            100% { background: radial-gradient(circle, rgba(255, 0, 255, 0.5), rgba(0, 0, 0, 0)); }
         }
 
         .laser {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
             transform: translate(-50%, -50%) perspective(1000px);
             z-index: -1;
         }
@@ -58,36 +55,22 @@
             width: 2px;
             height: 100%;
             background: linear-gradient(45deg, red, yellow, blue, green, purple);
-            animation: laserAnimation 1s infinite linear, laserReplica 1.5s infinite linear;
+            animation: laserAnimation 1s infinite linear;
             transform-origin: center;
         }
 
         @keyframes laserAnimation {
-            0% { transform: rotate(0deg) scale(1); }
-            100% { transform: rotate(360deg) scale(1.1); }
-        }
-
-        @keyframes laserReplica {
-            0% { opacity: 0.5; }
-            25% { opacity: 0.7; }
-            50% { opacity: 1; }
-            75% { opacity: 0.7; }
-            100% { opacity: 0.5; }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .snow {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
             pointer-events: none;
             z-index: -3;
         }
 
-        .snow .flake {
+        .flake {
             position: absolute;
-            top: -10px;
             width: 5px;
             height: 5px;
             background-color: white;
@@ -112,11 +95,10 @@
         }
 
         @keyframes colorChange {
-            0% { color: red; }
+            0%, 100% { color: red; }
             25% { color: green; }
             50% { color: blue; }
             75% { color: yellow; }
-            100% { color: pink; }
         }
 
         .container {
@@ -137,7 +119,6 @@
             25% { transform: rotate(10deg); }
             50% { transform: rotate(0deg); }
             75% { transform: rotate(-10deg); }
-            100% { transform: rotate(0deg); }
         }
 
         audio {
@@ -161,17 +142,11 @@
             cursor: pointer;
             color: #fff;
             padding: 10px;
-            width: 50px;  /* Botones más grandes en móviles */
+            width: 50px;
             height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 10px;
-        }
-
-        .audio-button img {
-            width: 30px;  /* Ajuste para la imagen del corazón */
-            height: 30px;
         }
 
         .play-button {
@@ -180,11 +155,6 @@
 
         .pause-button {
             color: #808080;
-        }
-
-        .audio-controls button {
-            display: inline-flex;
-            align-items: center;
         }
     </style>
 </head>
@@ -206,12 +176,10 @@
 
         <div class="audio-controls">
             <button class="audio-button play-button" onclick="toggleAudio(true)">
-                <img class="heart-icon" src="" alt="Corazón Roto">
                 💔
             </button>
 
             <button class="audio-button pause-button" onclick="toggleAudio(false)" style="display: none;">
-                <img class="heart-icon" src="" alt="Corazón Rojo">
                 ❤
             </button>
 
@@ -267,5 +235,6 @@
     </script>
 </body>
 </html>
+
 
 
