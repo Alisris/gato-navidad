@@ -3,22 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Disfruta de gato bailando. ¡Feliz Navidad!</title>
+    <title>Gato Bailando con Luces y Música</title>
 
-    <!-- Meta etiquetas para optimizar la previsualización en redes sociales -->
-    <meta property="og:image" content="https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif"> <!-- GIF principal para redes -->
-    <meta property="og:image:type" content="image/gif">
-    <meta property="og:image:width" content="600">
-    <meta property="og:image:height" content="400">
-    <meta property="og:image:alt" content="Disfruta de gato bailando. ¡Feliz Navidad!">
-    <meta property="og:title" content="Disfruta de gato bailando. ¡Feliz Navidad!">
-    <meta property="og:description" content="Disfruta de gato bailando. ¡Feliz Navidad!">
-    <meta property="og:url" content="https://alisris.github.io/gato-navidad/"> <!-- Aquí pon la URL donde estará el contenido -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif">
-    <meta name="twitter:title" content="Disfruta de gato bailando. ¡Feliz Navidad!a">
-    <meta name="twitter:description" content="Disfruta de gato bailando. ¡Feliz Navidad!">
-
+    <!-- Meta etiquetas para el GIF cuando se comparte el enlace -->
+    <meta property="og:image" content="https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif">
+    <meta property="og:title" content="Gato Bailando con Luces y Música">
+    <meta property="og:description" content="Disfruta de un gato bailando con luces y música navideña. ¡Feliz Navidad!">
+    
     <style>
         body {
             margin: 0;
@@ -208,7 +199,7 @@
         <h1>¡Feliz Navidad!</h1>
         <img id="danceCat" src="https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif" alt="Gato Bailando" class="dance-cat">
         
-        <audio id="audio" loop autoplay muted>
+        <audio id="audio" loop autoplay>
             <source src="dj-vanny-boy-r.mp3" type="audio/mp3">
             Tu navegador no soporta la etiqueta de audio.
         </audio>
@@ -221,6 +212,7 @@
                 ❤
             </button>
 
+
             <p id="audioStatus">Estado del audio: Reproduciendo</p>
         </div>
     </div>
@@ -232,17 +224,9 @@
         var pauseButton = document.querySelector('.pause-button');
         var danceCat = document.getElementById('danceCat');
 
-        // Al cargar la página, intenta reproducir el audio
         window.onload = function() {
-            audio.play().then(() => {
-                // Desactivar mute si se pudo reproducir automáticamente
-                audio.muted = false;
-                playButton.style.display = "none";
-                pauseButton.style.display = "inline-block";
-            }).catch(() => {
-                // Si no se pudo reproducir, mantener el botón de reproducción visible
-                console.log("La reproducción automática fue bloqueada por el navegador.");
-            });
+            playButton.style.display = "none";
+            pauseButton.style.display = "inline-block";
         };
 
         function toggleAudio(isPlay) {
