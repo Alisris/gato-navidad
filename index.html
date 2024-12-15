@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gato Bailando con Luces y Música</title>
+    <title>¡Feliz Navidad! El Viajero del Tiempo</title>
 
-    <!-- Meta etiquetas para el GIF cuando se comparte el enlace -->
     <meta property="og:image" content="https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif">
-    <meta property="og:title" content="Gato Bailando con Luces y Música">
+    <meta property="og:title" content="¡Feliz Navidad! El Viajero del Tiempo">
     <meta property="og:description" content="Disfruta de un gato bailando con luces y música navideña. ¡Feliz Navidad!">
-    
-    <!-- SDK de JavaScript de Facebook -->
+
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v16.0" nonce="0l4zMffX"></script>
 
@@ -24,85 +23,9 @@
             align-items: center;
             height: 100vh;
             background-color: #000;
-            overflow-y: scroll;  /* Esto agrega la barra de desplazamiento */
+            overflow-y: scroll;
             position: relative;
-        }
-
-        .stars {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0));
-            animation: starAnimation 1.5s infinite linear;
-            z-index: -2;
-        }
-
-        @keyframes starAnimation {
-            0% { background: radial-gradient(circle, rgba(255, 0, 0, 0.5), rgba(0, 0, 0, 0)); }
-            25% { background: radial-gradient(circle, rgba(0, 255, 0, 0.5), rgba(0, 0, 0, 0)); }
-            50% { background: radial-gradient(circle, rgba(0, 0, 255, 0.5), rgba(0, 0, 0, 0)); }
-            75% { background: radial-gradient(circle, rgba(255, 255, 0, 0.5), rgba(0, 0, 0, 0)); }
-            100% { background: radial-gradient(circle, rgba(255, 0, 255, 0.5), rgba(0, 0, 0, 0)); }
-        }
-
-        .laser {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            transform: translate(-50%, -50%) perspective(1000px);
-            z-index: -1;
-        }
-
-        .laser div {
-            position: absolute;
-            width: 2px;
-            height: 100%;
-            background: linear-gradient(45deg, red, yellow, blue, green, purple);
-            animation: laserAnimation 1s infinite linear, laserReplica 1.5s infinite linear;
-            transform-origin: center;
-        }
-
-        @keyframes laserAnimation {
-            0% { transform: rotate(0deg) scale(1); }
-            100% { transform: rotate(360deg) scale(1.1); }
-        }
-
-        @keyframes laserReplica {
-            0% { opacity: 0.5; }
-            25% { opacity: 0.7; }
-            50% { opacity: 1; }
-            75% { opacity: 0.7; }
-            100% { opacity: 0.5; }
-        }
-
-        .snow {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -3;
-        }
-
-        .snow .flake {
-            position: absolute;
-            top: -10px;
-            width: 5px;
-            height: 5px;
-            background-color: white;
-            border-radius: 50%;
-            animation: snowAnimation 1s linear infinite;
-            opacity: 0.8;
-        }
-
-        @keyframes snowAnimation {
-            0% { transform: translateY(-10px); }
-            100% { transform: translateY(100vh); }
+            color: white;
         }
 
         h1 {
@@ -111,114 +34,71 @@
             text-align: center;
             font-weight: bold;
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-            animation: colorChange 3s infinite ease-in-out;
+            animation: colorChange 1s infinite ease-in-out;
             z-index: 1;
         }
 
+        /* Efecto de cambio de colores rápido */
         @keyframes colorChange {
-            0% { color: red; }
-            25% { color: green; }
-            50% { color: blue; }
-            75% { color: yellow; }
-            100% { color: pink; }
+            0% {
+                color: #ff0000; /* Rojo */
+            }
+            20% {
+                color: #ff7300; /* Naranja */
+            }
+            40% {
+                color: #00ff00; /* Verde */
+            }
+            60% {
+                color: #0000ff; /* Azul */
+            }
+            80% {
+                color: #800080; /* Morado */
+            }
+            100% {
+                color: #ff0000; /* Regresa a Rojo */
+            }
         }
 
         .container {
             position: relative;
-            z-index: 1;
-            text-align: center;
-        }
-
-        .dance-cat {
-            width: 60vw;  /* Ajuste para pantallas móviles */
-            max-width: 400px;
-            animation: dance 1s infinite;
             z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: auto;
         }
 
-        @keyframes dance {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(10deg); }
-            50% { transform: rotate(0deg); }
-            75% { transform: rotate(-10deg); }
-            100% { transform: rotate(0deg); }
+        video {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: block;
         }
 
-        audio {
-            display: none;
-        }
-
-        .audio-controls {
+        .video-controls {
             margin-top: 10px;
             font-size: 1.2rem;
             color: #fff;
             display: flex;
             justify-content: center;
-            gap: 20px;
-            flex-direction: column;
+            gap: 10px;
+            flex-direction: row;
+            z-index: 3;
         }
 
-        .audio-button {
+        .video-button {
             background: none;
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
             color: #fff;
-            padding: 10px;
-            width: 50px;  /* Botones más grandes en móviles */
-            height: 50px;
+            padding: 8px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 10px;
-        }
-
-        .audio-button img {
-            width: 30px;  /* Ajuste para la imagen del corazón */
-            height: 30px;
-        }
-
-        .play-button {
-            color: #ff0000; 
-        }
-
-        .pause-button {
-            color: #808080;
-        }
-
-        .audio-controls button {
-            display: inline-flex;
-            align-items: center;
-        }
-
-        .progress-container {
-            width: 80%;
-            margin-top: 10px;
-        }
-
-        input[type="range"] {
-            width: 100%;
-            cursor: pointer;
-            background: transparent;
-        }
-
-        .progress-bar {
-            height: 10px;
-            background: #ccc;
-            border-radius: 5px;
-            position: relative;
-        }
-
-        .progress {
-            height: 100%;
-            background: #ff0000;
-            border-radius: 5px;
-        }
-
-        .time-display {
-            margin-top: 10px;
-            font-size: 1rem;
-            color: #fff;
         }
 
         .change-page-btn {
@@ -236,133 +116,253 @@
         .change-page-btn:hover {
             background-color: #218838;
         }
+
+        /* Estilo para la nieve */
+        .snow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .snowflake {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: snow 0.5s linear infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes snow {
+            0% {
+                transform: translateY(-50px) translateX(0);
+            }
+            100% {
+                transform: translateY(100vh) translateX(100px);
+            }
+        }
+
+        /* Estilo para las estrellas */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            background-color: #FFD700; /* Color dorado */
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: starFall 2s linear infinite;
+        }
+
+        @keyframes starFall {
+            0% {
+                transform: translateY(-100px) translateX(0);
+            }
+            100% {
+                transform: translateY(100vh) translateX(50px);
+            }
+        }
     </style>
 </head>
+
 <body>
-    <div class="snow"></div>
-    <div class="stars"></div>
-    <div class="laser">
-        <div></div>
-    </div>
+    <div class="snow" id="snow"></div>
+    <div class="stars" id="stars"></div>
 
     <div class="container">
-        <h1>¡Feliz Navidad!</h1>
-        <img id="danceCat" src="https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif" alt="Gato Bailando" class="dance-cat">
-        
-        <audio id="audio" loop autoplay>
-            <source src="dj-vanny-boy-r.mp3" type="audio/mp3">
-            Tu navegador no soporta la etiqueta de audio.
-        </audio>
+        <h1>¡Feliz Navidad! El viajero del tiempo</h1>
 
-        <div class="audio-controls">
-            <button class="audio-button play-button" onclick="toggleAudio(true)">
-                💔
-            </button>
-            <button class="audio-button pause-button" onclick="toggleAudio(false)" style="display: none;">
-                ❤
-            </button>
-            <p id="audioStatus">Estado del audio: Reproduciendo</p>
+        <!-- Video con URL -->
+        <video id="video" loop autoplay>
+            <!-- Aquí puedes colocar la URL de tu video -->
+            <source src="https://download1655.mediafire.com/vujruotbbmmgcelhseR8rRtn7mvaA4DQlkXzpxagQN_AxyRN2IOD7Aizb-MKe6M2NF9MjB1dg5dE6pSIgWTwYtJ7gZYot5x1vOEHox19d5ARdATsG_94OGx6qSSN6ig7FisKn7rWv7ivBQ9LGpwQUMHoO_fOfpPUySTKBvRiqMf7MuY/fv6oeudf0dj2nj9/videomix-90s-flashback.mp4" type="video/mp4">
+            Tu navegador no soporta la etiqueta de video.
+        </video>
 
-            <!-- Barra de progreso -->
+        <div class="video-controls">
+            <button class="video-button" onclick="toggleVideo(true)">
+                ▶️
+            </button>
+            <button class="video-button" onclick="toggleVideo(false)" style="display: none;">
+                ⏸️
+            </button>
+
+            <button class="video-button" onclick="toggleFullScreen()">
+                ⛶
+            </button>
+
+            <button class="video-button" onclick="skipTime(-10)">
+                ⏪
+            </button>
+            <button class="video-button" onclick="skipTime(10)">
+                ⏩
+            </button>
+
+            <button class="video-button" onclick="previousVideo()">
+                ⬅️
+            </button>
+
+            <button class="video-button" onclick="nextVideo()">
+                ➡️
+            </button>
+
+            <label for="speedControl">Velocidad:</label>
+            <select id="speedControl" onchange="changeSpeed(this.value)">
+                <option value="1">1x</option>
+                <option value="1.5">1.5x</option>
+                <option value="2">2x</option>
+                <option value="0.5">0.5x</option>
+            </select>
+
+            <label for="volumeControl">Volumen:</label>
+            <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="1" onchange="changeVolume(this.value)">
+
             <div class="progress-container">
-                <input type="range" id="audioProgress" value="0" min="0" max="100" step="1" onchange="setAudioTime(this.value)">
+                <input type="range" id="progress" value="0" max="100" step="0.1" onchange="changeProgress(this.value)">
                 <div class="progress-bar">
-                    <div class="progress" id="progress"></div>
+                    <div class="progress"></div>
                 </div>
             </div>
 
-            <!-- Mostrar tiempo -->
-            <div class="time-display">
-                <span id="current-time">00:00</span> / <span id="duration-time">00:00</span>
-            </div>
+            <div class="time-display" id="timeDisplay">00:00 / 00:00</div>
         </div>
-
+        
         <!-- Botón para cambiar de página -->
         <button onclick="location.href='index1.html'" class="change-page-btn">Siguiente página</button>
 
         <!-- Botón "Me gusta" de Facebook -->
         <div class="fb-like" data-href="https://www.facebook.com/share/p/fj7nnjjMHb3eevsV//TuPaginaDeFacebook" data-width="150" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
-
+    
         <!-- Botón "Seguir" de Facebook -->
         <div class="fb-follow" data-href="https://www.facebook.com/share/p/fj7nnjjMHb3eevsV/" data-width="200" data-show-faces="true" data-size="large"></div>
     </div>
 
     <script>
-        var audio = document.getElementById('audio');
-        var audioStatus = document.getElementById('audioStatus');
-        var playButton = document.querySelector('.play-button');
-        var pauseButton = document.querySelector('.pause-button');
-        var progress = document.getElementById('progress');
-        var audioProgress = document.getElementById('audioProgress');
-        var danceCat = document.getElementById('danceCat');
-        var currentTimeDisplay = document.getElementById('current-time');
-        var durationTimeDisplay = document.getElementById('duration-time');
+        const video = document.getElementById('video');
+        const playButton = document.querySelector('.play-button');
+        const pauseButton = document.querySelector('.pause-button');
+        const progress = document.getElementById('progress');
+        const timeDisplay = document.getElementById('timeDisplay');
 
-        window.onload = function() {
-            playButton.style.display = "none";
-            pauseButton.style.display = "inline-block";
-        };
+        // Lista de videos para reproducir secuencialmente
+        const videos = [
+            "https://www.example.com/videos/90s-techno-pop-video-mix-by-dj-soundhunter.mp4",
+            "https://www.example.com/videos/videomix-90s-flashback.mp4",
+            "https://www.example.com/videos/another-video.mp4"
+        ];
 
-        function toggleAudio(isPlay) {
-            if (isPlay) {
-                audio.play();
-                audioStatus.textContent = "Estado del audio: Reproduciendo";
-                playButton.style.display = "none";
-                pauseButton.style.display = "inline-block";
-                changeGif("https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif");  // GIF cuando se reproduce
-            } else {
-                audio.pause();
-                audioStatus.textContent = "Estado del audio: Pausado";
-                playButton.style.display = "inline-block";
-                pauseButton.style.display = "none";
-                changeGif("https://media.giphy.com/media/PdKTOwHgOASGY/giphy.gif");  // GIF cuando se pausa
+        let currentVideoIndex = 0;
+
+        // Cambiar al siguiente video cuando el actual termine
+        video.addEventListener('ended', () => {
+            currentVideoIndex++;
+            if (currentVideoIndex >= videos.length) {
+                currentVideoIndex = 0; // Vuelve al primer video si se llega al final
             }
-        }
 
-        function changeGif(url) {
-            danceCat.src = url;
-        }
+            // Cargar el siguiente video
+            video.src = videos[currentVideoIndex];
+            video.load(); // Asegurarse de que el siguiente video esté cargado
 
-        audio.addEventListener('timeupdate', function() {
-            var progressValue = (audio.currentTime / audio.duration) * 100;
-            progress.style.width = progressValue + "%";
-            audioProgress.value = progressValue;
-
-            // Mostrar el tiempo actual y la duración total en formato HH:MM:SS
-            currentTimeDisplay.textContent = formatTime(audio.currentTime);
-            durationTimeDisplay.textContent = formatTime(audio.duration);
+            // Reproducir el siguiente video automáticamente
+            video.play();
         });
 
-        function formatTime(seconds) {
-            var hours = Math.floor(seconds / 3600);
-            var minutes = Math.floor((seconds % 3600) / 60);
-            var secs = Math.floor(seconds % 60);
-            return `${pad(hours)}:${pad(minutes)}:${pad(secs)}`;
-        }
+        video.addEventListener('timeupdate', () => {
+            const currentTime = video.currentTime;
+            const duration = video.duration;
+            const progressValue = (currentTime / duration) * 100;
+            progress.value = progressValue;
 
-        function pad(num) {
-            return num < 10 ? '0' + num : num;
-        }
+            const minutes = Math.floor(currentTime / 60);
+            const seconds = Math.floor(currentTime % 60);
+            timeDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} / ${String(Math.floor(duration / 60)).padStart(2, '0')}:${String(Math.floor(duration % 60)).padStart(2, '0')}`;
+        });
 
-        function setAudioTime(value) {
-            var duration = audio.duration;
-            var time = (value / 100) * duration;
-            audio.currentTime = time;
-        }
-
-        function generateSnow() {
-            var snowContainer = document.querySelector('.snow');
-            for (var i = 0; i < 100; i++) {
-                var flake = document.createElement('div');
-                flake.classList.add('flake');
-                flake.style.left = Math.random() * 100 + 'vw';
-                flake.style.animationDuration = Math.random() * 3 + 2 + 's';
-                flake.style.animationDelay = Math.random() * 5 + 's';
-                snowContainer.appendChild(flake);
+        function toggleVideo(isPlaying) {
+            if (isPlaying) {
+                video.play();
+                playButton.style.display = 'none';
+                pauseButton.style.display = 'block';
+            } else {
+                video.pause();
+                playButton.style.display = 'block';
+                pauseButton.style.display = 'none';
             }
         }
 
-        generateSnow();
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                video.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function skipTime(seconds) {
+            video.currentTime += seconds;
+        }
+
+        function previousVideo() {
+            currentVideoIndex--;
+            if (currentVideoIndex < 0) {
+                currentVideoIndex = videos.length - 1; // Vuelve al último video si se está en el primero
+            }
+            video.src = videos[currentVideoIndex];
+            video.load();
+            video.play();
+        }
+
+        function nextVideo() {
+            currentVideoIndex++;
+            if (currentVideoIndex >= videos.length) {
+                currentVideoIndex = 0;
+            }
+            video.src = videos[currentVideoIndex];
+            video.load();
+            video.play();
+        }
+
+        function changeSpeed(speed) {
+            video.playbackRate = parseFloat(speed);
+        }
+
+        function changeVolume(volume) {
+            video.volume = parseFloat(volume);
+        }
+
+        function changeProgress(value) {
+            video.currentTime = (video.duration * value) / 100;
+        }
+
+        // Crear las estrellas doradas
+        function createStars() {
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.width = `${Math.random() * 5 + 2}px`;
+                star.style.height = star.style.width;
+                star.style.top = `${Math.random() * -100}px`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                document.getElementById('stars').appendChild(star);
+            }
+        }
+
+        createStars();
     </script>
 </body>
+
 </html>
+
