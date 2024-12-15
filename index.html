@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gato Bailando con Luces y Música</title>
     <style>
-        /* Fondo con estrellas y rayos láser */
         body {
             margin: 0;
             padding: 0;
@@ -19,7 +18,6 @@
             position: relative;
         }
 
-        /* Estrellas de colores */
         .stars {
             position: absolute;
             top: 0;
@@ -39,7 +37,6 @@
             100% { background: radial-gradient(circle, rgba(255, 0, 255, 0.5), rgba(0, 0, 0, 0)); }
         }
 
-        /* Rayos láser de colores centrados y con efecto 3D */
         .laser {
             position: absolute;
             top: 50%;
@@ -59,13 +56,11 @@
             transform-origin: center;
         }
 
-        /* Giro 3D de rayos láser con efecto de replicado */
         @keyframes laserAnimation {
             0% { transform: rotate(0deg) scale(1); }
             100% { transform: rotate(360deg) scale(1.1); }
         }
 
-        /* Efecto de replicado 3D, creando rayos duplicados alrededor */
         @keyframes laserReplica {
             0% { opacity: 0.5; }
             25% { opacity: 0.7; }
@@ -74,7 +69,6 @@
             100% { opacity: 0.5; }
         }
 
-        /* Efecto de nieve cayendo */
         .snow {
             position: absolute;
             top: 0;
@@ -101,7 +95,6 @@
             100% { transform: translateY(100vh); }
         }
 
-        /* Título animado de Feliz Navidad */
         h1 {
             font-size: 4rem;
             color: #fff;
@@ -120,16 +113,15 @@
             100% { color: pink; }
         }
 
-        /* Estilo del contenedor */
         .container {
             position: relative;
             z-index: 1;
             text-align: center;
         }
 
-        /* Estilo de la animación del gato */
         .dance-cat {
-            width: 400px;
+            width: 60vw;  /* Ajuste para pantallas móviles */
+            max-width: 400px;
             animation: dance 1s infinite;
             z-index: 2;
         }
@@ -142,52 +134,48 @@
             100% { transform: rotate(0deg); }
         }
 
-        /* Música de fondo */
         audio {
             display: none;
         }
 
-        /* Botones de control */
         .audio-controls {
-            margin-top: 20px;
+            margin-top: 10px;
             font-size: 1.2rem;
             color: #fff;
             display: flex;
             justify-content: center;
             gap: 20px;
+            flex-direction: column;
         }
 
-        /* Estilo para los botones */
         .audio-button {
             background: none;
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
             color: #fff;
+            padding: 10px;
+            width: 50px;  /* Botones más grandes en móviles */
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-top: 10px;
-            padding: 10px;
         }
 
-        /* Estilo para el icono del corazón */
-        .heart-icon {
-            width: 40px;
-            height: 40px;
-            margin-right: 10px;
+        .audio-button img {
+            width: 30px;  /* Ajuste para la imagen del corazón */
+            height: 30px;
         }
 
-        /* Estilo para los botones de corazón */
         .play-button {
-            color: #ff0000; /* Corazón rojo */
+            color: #ff0000; 
         }
 
         .pause-button {
-            color: #808080; /* Corazón roto */
+            color: #808080;
         }
 
-        /* Alinear los botones correctamente */
         .audio-controls button {
             display: inline-flex;
             align-items: center;
@@ -195,33 +183,27 @@
     </style>
 </head>
 <body>
-    <!-- Nieve cayendo -->
     <div class="snow"></div>
     <div class="stars"></div>
     <div class="laser">
-        <div></div> <!-- Rayos láser -->
+        <div></div>
     </div>
 
     <div class="container">
         <h1>¡Feliz Navidad!</h1>
-        <!-- GIF del gato, por defecto este es el animado -->
         <img id="danceCat" src="https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif" alt="Gato Bailando" class="dance-cat">
-
-        <!-- Música de fondo -->
+        
         <audio id="audio" loop>
             <source src="dj-vanny-boy-r.mp3" type="audio/mp3">
             Tu navegador no soporta la etiqueta de audio.
         </audio>
 
-        <!-- Controles de audio -->
         <div class="audio-controls">
-            <!-- Botón de reproducción (corazón rojo) -->
             <button class="audio-button play-button" onclick="toggleAudio(true)">
                 <img class="heart-icon" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Red_Heart_Emoji.png" alt="Corazón Roto">
                 💔
             </button>
 
-            <!-- Botón de pausa (corazón roto) -->
             <button class="audio-button pause-button" onclick="toggleAudio(false)" style="display: none;">
                 <img class="heart-icon" src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Heart_break_emoji.png" alt="Corazón Rojo">
                 ❤
@@ -238,25 +220,9 @@
         var pauseButton = document.querySelector('.pause-button');
         var danceCat = document.getElementById('danceCat');
 
-        // Mostrar el corazón roto por defecto al inicio
-        pauseButton.style.display = "inline-block";
-        playButton.style.display = "none";
-
-        // Reproducir audio automáticamente al cargar la página
         window.onload = function() {
-            try {
-                audio.play(); // Intentar reproducir el audio
-                audioStatus.textContent = "Estado del audio: Reproduciendo";
-                playButton.style.display = "none";
-                pauseButton.style.display = "inline-block";
-                // Cambiar el GIF cuando el audio se reproduce (corazón rojo)
-                changeGif("https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif");
-            } catch (e) {
-                audioStatus.textContent = "Estado del audio: No Reproducido (Usuario debe permitirlo)";
-                // Si no se puede reproducir automáticamente, muestra los botones
-                playButton.style.display = "inline-block";
-                pauseButton.style.display = "none";
-            }
+            playButton.style.display = "inline-block";
+            pauseButton.style.display = "none";
         };
 
         function toggleAudio(isPlay) {
@@ -265,14 +231,12 @@
                 audioStatus.textContent = "Estado del audio: Reproduciendo";
                 playButton.style.display = "none";
                 pauseButton.style.display = "inline-block";
-                // Cambiar el GIF cuando el audio se reproduce (corazón rojo)
                 changeGif("https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif");
             } else {
                 audio.pause();
                 audioStatus.textContent = "Estado del audio: Pausado";
                 playButton.style.display = "inline-block";
                 pauseButton.style.display = "none";
-                // Cambiar el GIF cuando el audio se pausa (corazón roto)
                 changeGif("https://tenor.com/es/view/take-this-rock-gif-9267856630793442480");
             }
         }
@@ -281,7 +245,6 @@
             danceCat.src = url;
         }
 
-        // Generar nieve
         function generateSnow() {
             var snowContainer = document.querySelector('.snow');
             for (var i = 0; i < 100; i++) {
@@ -298,4 +261,3 @@
     </script>
 </body>
 </html>
-
