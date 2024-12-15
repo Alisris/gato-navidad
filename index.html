@@ -237,13 +237,13 @@
                 audioStatus.textContent = "Estado del audio: Reproduciendo";
                 playButton.style.display = "none";
                 pauseButton.style.display = "inline-block";
-                changeGif("https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif");
+                changeGif("https://media.giphy.com/media/BK1EfIsdkKZMY/giphy.gif");  // GIF cuando se reproduce
             } else {
                 audio.pause();
                 audioStatus.textContent = "Estado del audio: Pausado";
                 playButton.style.display = "inline-block";
                 pauseButton.style.display = "none";
-                changeGif("https://tenor.com/es/view/take-this-rock-gif-9267856630793442480");
+                changeGif("https://media.giphy.com/media/PdKTOwHgOASGY/giphy.gif");  // GIF cuando se pausa
             }
         }
 
@@ -267,4 +267,5 @@
     </script>
 </body>
 </html>
+
 
