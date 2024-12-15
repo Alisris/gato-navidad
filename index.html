@@ -199,7 +199,7 @@
         <h1>¡Feliz Navidad! El viajero del tiempo</h1>
 
         <!-- Video con múltiples fuentes -->
-        <video id="video" loop>
+        <video id="video" loop controls>
             <source src="https://download1655.mediafire.com/9xlax0qng8sgUH3vpw_5ZJx6Qmc9Pu4v9cbEwarzwzBfMaV6Hk4rZFRAOYieIouSpdF3o9HvNqqV2oGnbltXcBPY3qOXvexa8hl4FK45qyx7sqvyAilSK0vLvxeGRHYEGQkq2vCUJvi-GJy2hDB3zz6Z2_niII4-EF9lSOV2FBcWthA/fv6oeudf0dj2nj9/videomix-90s-flashback.mp4" type="video/mp4">
             <source src="https://example.com/video.webm" type="video/webm">
             <source src="https://example.com/video.ogv" type="video/ogg">
@@ -216,29 +216,8 @@
 
             <button class="video-button" onclick="skipTime(-10)">⏪</button>
             <button class="video-button" onclick="skipTime(10)">⏩</button>
-
-            <button class="video-button" onclick="previousVideo()">⬅️</button>
-
-            <button class="video-button" onclick="nextVideo()">➡️</button>
-
-            <label for="speedControl">Velocidad:</label>
-            <select id="speedControl" onchange="changeSpeed(this.value)">
-                <option value="1">1x</option>
-                <option value="1.5">1.5x</option>
-                <option value="2">2x</option>
-                <option value="0.5">0.5x</option>
-            </select>
-
-            <label for="volumeControl">Volumen:</label>
-            <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="1" onchange="changeVolume(this.value)">
-
-            <div class="progress-container">
-                <input type="range" id="progress" value="0" max="100" step="0.1" onchange="changeProgress(this.value)">
-            </div>
-
-            <div class="time-display" id="timeDisplay">00:00 / 00:00</div>
         </div>
-        
+
         <button onclick="location.href='index1.html'" class="change-page-btn">Siguiente página</button>
     </div>
 
@@ -246,12 +225,10 @@
         const video = document.getElementById('video');
         const playButton = document.querySelector('.video-button');
 
-        // Iniciar video cuando el usuario presione el botón
         function startVideo() {
             video.play();
         }
 
-        // Función para reproducir o pausar el video
         function toggleVideo(isPlaying) {
             if (isPlaying) {
                 video.play();
@@ -262,7 +239,6 @@
             }
         }
 
-        // Función para cambiar la pantalla a modo completo
         function toggleFullScreen() {
             if (!document.fullscreenElement) {
                 video.requestFullscreen();
@@ -271,63 +247,10 @@
             }
         }
 
-        // Salta los segundos del video
         function skipTime(seconds) {
             video.currentTime += seconds;
         }
-
-        // Cambia la velocidad de reproducción
-        function changeSpeed(speed) {
-            video.playbackRate = parseFloat(speed);
-        }
-
-        // Cambia el volumen del video
-        function changeVolume(volume) {
-            video.volume = parseFloat(volume);
-        }
-
-        // Actualiza el progreso del video
-        function changeProgress(value) {
-            video.currentTime = (video.duration * value) / 100;
-        }
-
-        // Manejador de errores si no se puede cargar el video
-        video.onerror = function() {
-            alert("No se pudo cargar el video.");
-        };
-
-        // Eventos para mostrar el tiempo y la barra de progreso
-        video.addEventListener('timeupdate', () => {
-            const currentTime = video.currentTime;
-            const duration = video.duration;
-            const progressValue = (currentTime / duration) * 100;
-            document.getElementById('progress').value = progressValue;
-
-            const minutes = Math.floor(currentTime / 60);
-            const seconds = Math.floor(currentTime % 60);
-            document.getElementById('timeDisplay').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} / ${String(Math.floor(duration / 60)).padStart(2, '0')}:${String(Math.floor(duration % 60)).padStart(2, '0')}`;
-        });
-
-        // Cambiar al siguiente video cuando el actual termine
-        const videos = [
-            "https://download1655.mediafire.com/9xlax0qng8sgUH3vpw_5ZJx6Qmc9Pu4v9cbEwarzwzBfMaV6Hk4rZFRAOYieIouSpdF3o9HvNqqV2oGnbltXcBPY3qOXvexa8hl4FK45qyx7sqvyAilSK0vLvxeGRHYEGQkq2vCUJvi-GJy2hDB3zz6Z2_niII4-EF9lSOV2FBcWthA/fv6oeudf0dj2nj9/videomix-90s-flashback.mp4",
-            "https://example.com/video2.mp4",
-            "https://example.com/video3.mp4"
-        ];
-
-        let currentVideoIndex = 0;
-
-        video.addEventListener('ended', () => {
-            currentVideoIndex++;
-            if (currentVideoIndex >= videos.length) {
-                currentVideoIndex = 0;
-            }
-            video.src = videos[currentVideoIndex];
-            video.load();
-            video.play();
-        });
     </script>
 </body>
-
 </html>
 
