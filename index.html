@@ -14,27 +14,24 @@
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v16.0" nonce="0l4zMffX"></script>
 
     <style>
-        /* Estilo base para cuerpo */
         body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column; /* Cambio para apilar los elementos verticalmente */
             justify-content: center;
             align-items: center;
             height: 100vh;
             background-color: #000;
-            overflow-y: auto;
+            overflow-y: scroll;
+            position: relative;
             color: white;
-            text-align: center;
-            padding: 0 10px; /* Agregar algo de espacio a los lados */
         }
 
-        /* Ajustes para el título (h1) */
         h1 {
-            font-size: 5vw; /* Tamaño relativo al ancho de la pantalla */
+            font-size: 4rem;
             color: #fff;
+            text-align: center;
             font-weight: bold;
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
             animation: colorChange 1s infinite ease-in-out;
@@ -44,56 +41,59 @@
         /* Efecto de cambio de colores rápido */
         @keyframes colorChange {
             0% {
-                color: #ff0000;
+                color: #ff0000; /* Rojo */
             }
             20% {
-                color: #ff7300;
+                color: #ff7300; /* Naranja */
             }
             40% {
-                color: #00ff00;
+                color: #00ff00; /* Verde */
             }
             60% {
-                color: #0000ff;
+                color: #0000ff; /* Azul */
             }
             80% {
-                color: #800080;
+                color: #800080; /* Morado */
             }
             100% {
-                color: #ff0000;
+                color: #ff0000; /* Regresa a Rojo */
             }
         }
 
-        /* Ajustes para el video */
+        .container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: auto;
+        }
+
         video {
             width: 100%;
-            max-width: 90%; /* No se sale del ancho de la pantalla */
-            height: auto;
+            max-width: 800px;
             border-radius: 10px;
             margin-top: 20px;
             display: block;
         }
 
-        /* Controles del video */
         .video-controls {
             margin-top: 10px;
-            font-size: 1rem; /* Ajuste para móviles */
+            font-size: 1.2rem;
             color: #fff;
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
+            flex-direction: row;
             z-index: 3;
-            width: 100%;
         }
 
-        /* Botones de control */
         .video-button {
             background: none;
             border: none;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             cursor: pointer;
             color: #fff;
-            padding: 10px;
+            padding: 8px;
             width: 40px;
             height: 40px;
             display: flex;
@@ -101,11 +101,10 @@
             justify-content: center;
         }
 
-        /* Contenedor del botón de cambiar página */
         .change-page-btn {
             background-color: #28a745;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
@@ -116,6 +115,35 @@
 
         .change-page-btn:hover {
             background-color: #218838;
+        }
+
+        /* Estilo para la nieve */
+        .snow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .snowflake {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: snow 0.5s linear infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes snow {
+            0% {
+                transform: translateY(-50px) translateX(0);
+            }
+            100% {
+                transform: translateY(100vh) translateX(100px);
+            }
         }
 
         /* Estilo para las estrellas */
@@ -131,36 +159,18 @@
 
         .star {
             position: absolute;
-            background-color: #FFD700;
+            background-color: #FFD700; /* Color dorado */
             border-radius: 50%;
             opacity: 0.8;
             animation: starFall 2s linear infinite;
         }
 
-        /* Movimiento de las estrellas */
         @keyframes starFall {
             0% {
                 transform: translateY(-100px) translateX(0);
             }
             100% {
                 transform: translateY(100vh) translateX(50px);
-            }
-        }
-
-        /* Hacer que el contenido se vea bien en pantallas más pequeñas */
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 8vw; /* Reduce el tamaño del texto en pantallas pequeñas */
-            }
-
-            .video-controls {
-                flex-direction: column; /* Coloca los controles en una columna */
-                font-size: 0.8rem; /* Ajusta el tamaño del texto */
-            }
-
-            .change-page-btn {
-                font-size: 1rem; /* Reduce el tamaño de la fuente para botones */
-                padding: 8px 15px; /* Reduce el espacio de los botones */
             }
         }
     </style>
@@ -175,6 +185,7 @@
 
         <!-- Video con URL -->
         <video id="video" loop autoplay>
+            <!-- Aquí puedes colocar la URL de tu video -->
             <source src="https://download1655.mediafire.com/vujruotbbmmgcelhseR8rRtn7mvaA4DQlkXzpxagQN_AxyRN2IOD7Aizb-MKe6M2NF9MjB1dg5dE6pSIgWTwYtJ7gZYot5x1vOEHox19d5ARdATsG_94OGx6qSSN6ig7FisKn7rWv7ivBQ9LGpwQUMHoO_fOfpPUySTKBvRiqMf7MuY/fv6oeudf0dj2nj9/videomix-90s-flashback.mp4" type="video/mp4">
             Tu navegador no soporta la etiqueta de video.
         </video>
@@ -238,19 +249,56 @@
     </div>
 
     <script>
-        const video = document.getElementById("video");
-        const playButton = document.querySelector(".video-controls .video-button:nth-child(1)");
-        const pauseButton = document.querySelector(".video-controls .video-button:nth-child(2)");
+        const video = document.getElementById('video');
+        const playButton = document.querySelector('.play-button');
+        const pauseButton = document.querySelector('.pause-button');
+        const progress = document.getElementById('progress');
+        const timeDisplay = document.getElementById('timeDisplay');
 
-        function toggleVideo(play) {
-            if (play) {
+        // Lista de videos para reproducir secuencialmente
+        const videos = [
+            "https://www.example.com/videos/90s-techno-pop-video-mix-by-dj-soundhunter.mp4",
+            "https://www.example.com/videos/videomix-90s-flashback.mp4",
+            "https://www.example.com/videos/another-video.mp4"
+        ];
+
+        let currentVideoIndex = 0;
+
+        // Cambiar al siguiente video cuando el actual termine
+        video.addEventListener('ended', () => {
+            currentVideoIndex++;
+            if (currentVideoIndex >= videos.length) {
+                currentVideoIndex = 0; // Vuelve al primer video si se llega al final
+            }
+
+            // Cargar el siguiente video
+            video.src = videos[currentVideoIndex];
+            video.load(); // Asegurarse de que el siguiente video esté cargado
+
+            // Reproducir el siguiente video automáticamente
+            video.play();
+        });
+
+        video.addEventListener('timeupdate', () => {
+            const currentTime = video.currentTime;
+            const duration = video.duration;
+            const progressValue = (currentTime / duration) * 100;
+            progress.value = progressValue;
+
+            const minutes = Math.floor(currentTime / 60);
+            const seconds = Math.floor(currentTime % 60);
+            timeDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} / ${String(Math.floor(duration / 60)).padStart(2, '0')}:${String(Math.floor(duration % 60)).padStart(2, '0')}`;
+        });
+
+        function toggleVideo(isPlaying) {
+            if (isPlaying) {
                 video.play();
-                playButton.style.display = "none";
-                pauseButton.style.display = "inline-block";
+                playButton.style.display = 'none';
+                pauseButton.style.display = 'block';
             } else {
                 video.pause();
-                playButton.style.display = "inline-block";
-                pauseButton.style.display = "none";
+                playButton.style.display = 'block';
+                pauseButton.style.display = 'none';
             }
         }
 
@@ -267,39 +315,52 @@
         }
 
         function previousVideo() {
-            alert('Cargar video anterior');
+            currentVideoIndex--;
+            if (currentVideoIndex < 0) {
+                currentVideoIndex = videos.length - 1; // Vuelve al último video si se está en el primero
+            }
+            video.src = videos[currentVideoIndex];
+            video.load();
+            video.play();
         }
 
         function nextVideo() {
-            alert('Cargar siguiente video');
+            currentVideoIndex++;
+            if (currentVideoIndex >= videos.length) {
+                currentVideoIndex = 0;
+            }
+            video.src = videos[currentVideoIndex];
+            video.load();
+            video.play();
         }
 
         function changeSpeed(speed) {
-            video.playbackRate = speed;
+            video.playbackRate = parseFloat(speed);
         }
 
         function changeVolume(volume) {
-            video.volume = volume;
+            video.volume = parseFloat(volume);
         }
 
-        function changeProgress(progress) {
-            video.currentTime = (progress / 100) * video.duration;
+        function changeProgress(value) {
+            video.currentTime = (video.duration * value) / 100;
         }
 
-        video.addEventListener("timeupdate", function () {
-            const currentTime = Math.floor(video.currentTime);
-            const duration = Math.floor(video.duration);
-            document.getElementById("timeDisplay").textContent = formatTime(currentTime) + " / " + formatTime(duration);
-
-            const progress = (currentTime / duration) * 100;
-            document.getElementById("progress").value = progress;
-        });
-
-        function formatTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${mins}:${secs < 10 ? "0" + secs : secs}`;
+        // Crear las estrellas doradas
+        function createStars() {
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.width = `${Math.random() * 5 + 2}px`;
+                star.style.height = star.style.width;
+                star.style.top = `${Math.random() * -100}px`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                document.getElementById('stars').appendChild(star);
+            }
         }
+
+        createStars();
     </script>
 </body>
 
