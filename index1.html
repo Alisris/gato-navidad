@@ -10,67 +10,65 @@
     <!-- Open Graph Meta Tags para redes sociales -->
     <meta property="og:title" content="videomix-90s-flashback">
     <meta property="og:description" content="Disfruta de una experiencia visual única con música y recuerdos de los 90s.">
-    <meta property="og:image" content="Dance 90.png"> <!-- Ruta de la imagen -->
+    <meta property="og:image" content="Dance 90.png">
     <meta property="og:image:alt" content="Imagen de Dance 90s">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tusitio.com"> <!-- Reemplaza con tu URL -->
+    <meta property="og:url" content="https://tusitio.com">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="videomix-90s-flashback">
     <meta name="twitter:description" content="Disfruta de una experiencia visual única con música y recuerdos de los 90s.">
-    <meta name="twitter:image" content="Dance 90.png"> <!-- Ruta de la imagen -->
+    <meta name="twitter:image" content="Dance 90.png">
 
     <style>
-        /* Establecer el fondo de pantalla negro para todo el cuerpo */
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             display: flex;
-            justify-content: center; /* Centra el contenido horizontalmente */
-            align-items: center; /* Centra el contenido verticalmente */
-            background-color: black; /* Fondo negro en toda la página */
+            justify-content: center;
+            align-items: center;
+            background-color: black;
             color: white;
-            overflow: hidden; /* Elimina las barras de desplazamiento */
-            flex-direction: column; /* Organiza el contenido en columna */
-            position: relative; /* Necesario para posicionar la nieve */
+            overflow: hidden;
+            flex-direction: column;
+            position: relative;
         }
 
-        /* Nieve dorada - Crear partículas flotantes */
+        /* Nieve dorada */
         .snowflake {
             position: absolute;
             top: -10px;
-            background-color: gold; /* Color dorado para la nieve */
+            background-color: gold;
             width: 5px;
             height: 5px;
             border-radius: 50%;
             opacity: 0.8;
-            animation: fall 1.5s linear infinite; /* Animación de caída rápida */
-            pointer-events: none; /* Para que no interfiera con otros elementos */
+            animation: fall 1.5s linear infinite;
+            pointer-events: none;
         }
 
-        /* Animación de caída de la nieve */
         @keyframes fall {
             to {
-                transform: translateY(100vh); /* Hace que caiga hasta el final de la pantalla */
+                transform: translateY(100vh);
             }
         }
 
-        /* Estilo para el contenedor de la barra lateral */
+        /* Sidebar */
         .sidebar {
             position: fixed;
             top: 0;
-            left: -250px; /* Inicia fuera de la pantalla */
-            width: 250px; /* Barra lateral más ancha */
-            height: 100%; /* Ajustamos la altura para que no se superponga con el título */
-            background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente */
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
             display: flex;
             flex-direction: column;
             align-items: stretch;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Sombra sutil para la barra lateral */
-            transition: left 0.3s ease; /* Animación para abrir/cerrar */
-            z-index: 10; /* Asegura que la barra lateral esté por encima de otros elementos */
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            transition: left 0.3s ease;
+            z-index: 10;
         }
 
         .sidebar a {
@@ -78,17 +76,14 @@
             padding: 15px;
             text-decoration: none;
             text-align: center;
-            width: 100%;
             border-bottom: 1px solid #444;
             transition: background-color 0.3s ease;
-            box-sizing: border-box; /* Asegura que el padding no sobresalga */
         }
 
         .sidebar a:hover {
             background-color: #575757;
         }
 
-        /* Botón para abrir/cerrar la barra lateral */
         .sidebar-toggle {
             position: fixed;
             top: 20px;
@@ -101,21 +96,19 @@
             cursor: pointer;
             border-radius: 50%;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-            z-index: 20; /* Asegura que el botón siempre esté por encima */
+            z-index: 20;
         }
 
-        /* Estilo para el contenedor de iframe (video) */
+        /* Contenedor de video */
         .iframe-container {
             position: relative;
-            width: 80vw; /* El contenedor ocupa el 80% del ancho de la pantalla */
-            max-width: 1000px; /* Limitar el ancho máximo */
-            padding-top: 56.25%; /* Mantiene la relación de aspecto 16:9 */
-            background-color: black; /* Fondo negro */
-            overflow: hidden; /* Evita que el video se desborde */
-            margin-top: 80px; /* Mover el video hacia abajo */
-            border-radius: 10px; /* Borde redondeado para el contenedor */
-            transition: width 0.3s ease; /* Animación para reducir el tamaño */
-            z-index: 1; /* Asegura que el contenedor del video esté por encima del fondo */
+            width: 80vw;
+            max-width: 1000px;
+            padding-top: 56.25%;
+            background-color: black;
+            overflow: hidden;
+            margin-top: 80px;
+            border-radius: 10px;
         }
 
         iframe {
@@ -128,17 +121,17 @@
             border-radius: 10px;
         }
 
-        /* Estilo para los botones debajo del video */
+        /* Botones debajo del video */
         .buttons-container {
             display: flex;
-            flex-direction: column;
+            flex-direction: row; /* Coloca los botones en una fila */
             align-items: center;
-            margin-top: 30px; /* Espacio entre el video y los botones */
-            width: 100%;
             justify-content: center;
-            text-align: center;
+            margin-top: 30px;
+            gap: 20px; /* Espacio horizontal entre los botones */
+            width: 100%;
             position: relative;
-            z-index: 2; /* Asegura que los botones estén por encima del video */
+            z-index: 2;
         }
 
         .change-page-btn {
@@ -148,142 +141,131 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-bottom: 15px;
             font-size: 16px;
-            width: 200px; /* Controla el tamaño del botón */
+            width: 200px;
         }
 
         .change-page-btn:hover {
             background-color: #575757;
         }
 
-        /* Estilo para el título animado */
+        /* Contenedor de botones sociales */
+        .social-buttons {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .fb-share-button {
+            margin: 10px 0;
+        }
+
+        /* Título animado */
         .animated-title {
-            font-size: 24px; /* Reducción del tamaño del texto */
+            font-size: 24px;
             font-family: 'Arial', sans-serif;
             font-weight: bold;
             text-align: center;
             color: white;
-            animation: color-change 2s infinite; /* Aplicamos la animación de cambio de color */
-            position: absolute; /* Hace que el título sea fijo en la parte superior */
-            top: 20px; /* Deja espacio desde la parte superior */
-            width: 100%; /* Asegura que el título ocupe todo el ancho */
+            animation: color-change 2s infinite;
+            position: absolute;
+            top: 20px;
+            width: 100%;
         }
 
-        /* Definir la animación para el cambio de color */
         @keyframes color-change {
-            0% {
-                color: red;
-            }
-            20% {
-                color: yellow;
-            }
-            40% {
-                color: green;
-            }
-            60% {
-                color: blue;
-            }
-            80% {
-                color: purple;
-            }
-            100% {
-                color: pink;
-            }
+            0% { color: red; }
+            20% { color: yellow; }
+            40% { color: green; }
+            60% { color: blue; }
+            80% { color: purple; }
+            100% { color: pink; }
         }
 
-        /* Media Queries para Pantallas Móviles */
         @media screen and (max-width: 768px) {
             .sidebar {
-                width: 200px; /* Reducir tamaño de la barra lateral en pantallas pequeñas */
+                width: 200px;
             }
 
             .iframe-container {
-                width: 90vw; /* El iframe ocupa el 90% del ancho */
-                padding-top: 56.25%; /* Mantiene la relación de aspecto 16:9 */
-                margin-top: 30px; /* Menos margen en móviles */
+                width: 90vw;
+                margin-top: 30px;
             }
 
             .buttons-container {
                 width: 100%;
-                padding: 0 20px;
             }
 
             .change-page-btn {
-                width: 100%; /* Botón a tamaño completo en móviles */
+                width: 100%;
             }
 
             .sidebar-toggle {
-                font-size: 30px; /* Asegura que el botón sea lo suficientemente grande en móviles */
-                padding: 12px; /* Ajustar padding */
-                top: 15px; /* Ajustar la posición superior */
-                left: 15px; /* Ajustar la posición izquierda */
+                font-size: 30px;
+                padding: 12px;
+                top: 15px;
+                left: 15px;
             }
         }
-
     </style>
 </head>
 
 <body>
-
-    <!-- Título animado que cambia de color -->
     <div class="animated-title">videomix-90s-flashback</div>
 
-    <!-- Botón para abrir/cerrar la barra lateral -->
     <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
 
-    <!-- Sidebar con enlaces a Facebook -->
     <div class="sidebar">
         <a href="https://www.facebook.com" target="_blank">Facebook</a>
         <a href="https://www.instagram.com" target="_blank">Instagram</a>
         <a href="https://twitter.com" target="_blank">Twitter</a>
     </div>
 
-    <!-- Contenedor para el video incrustado -->
     <div class="iframe-container">
         <iframe src="https://workdrive.zohoexternal.com/embed/so9bsc07c4b6b9c514ace9d5567bb64beac11?toolbar=false&appearance=light&themecolor=green" scrolling="no" frameborder="0" allowfullscreen="true" title="Incrustar código"></iframe>
     </div>
 
-    <!-- Botones debajo del video -->
     <div class="buttons-container">
-        <!-- Botón para cambiar de página -->
         <button onclick="location.href='index.html'" class="change-page-btn">Página Anterior</button>
-
-        <!-- Botones de Facebook -->
-        <div class="fb-like" data-href="https://www.facebook.com/share/p/fj7nnjjMHb3eevsV//TuPaginaDeFacebook" data-width="150" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
-        <div class="fb-follow" data-href="https://www.facebook.com/share/p/fj7nnjjMHb3eevsV/" data-width="200" data-show-faces="true" data-size="large"></div>
+        <button onclick="location.href='index3.html'" class="change-page-btn">Siguiente Página</button>
     </div>
 
-    <!-- SDK de Facebook -->
+    <div class="social-buttons">
+        <div class="fb-share-button" 
+             data-href="https://alisris.github.io/gato-navidad/" 
+             data-layout="button" 
+             data-size="large">
+        </div>
+    </div>
+
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v14.0"></script>
 
-    <!-- Función para crear la nieve dorada -->
     <script>
         for (let i = 0; i < 100; i++) {
             let snowflake = document.createElement('div');
             snowflake.classList.add('snowflake');
-            snowflake.style.left = `${Math.random() * 100}vw`; /* Distribuir aleatoriamente */
-            snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`; /* Duración aleatoria */
-            snowflake.style.animationDelay = `${Math.random() * 2}s`; /* Retraso aleatorio */
+            snowflake.style.left = `${Math.random() * 100}vw`;
+            snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            snowflake.style.animationDelay = `${Math.random() * 2}s`;
             document.body.appendChild(snowflake);
         }
 
-        // Función para abrir y cerrar la barra lateral
         function toggleSidebar() {
             const sidebar = document.querySelector('.sidebar');
             const sidebarToggle = document.querySelector('.sidebar-toggle');
 
             if (sidebar.style.left === '0px') {
-                sidebar.style.left = '-250px'; // Desplazamos la barra lateral fuera de la pantalla
-                sidebarToggle.innerHTML = '☰'; // Cambiar el icono de nuevo
+                sidebar.style.left = '-250px';
+                sidebarToggle.innerHTML = '☰';
             } else {
-                sidebar.style.left = '0px'; // Abrir la barra lateral
-                sidebarToggle.innerHTML = '×'; // Cambiar el icono a "X"
+                sidebar.style.left = '0px';
+                sidebarToggle.innerHTML = '×';
             }
         }
     </script>
-
 </body>
 
 </html>
