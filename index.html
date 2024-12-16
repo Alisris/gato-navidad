@@ -17,8 +17,29 @@
             align-items: center; /* Centra el contenido verticalmente */
             background-color: black; /* Fondo negro en toda la página */
             color: white;
-            overflow-y: auto; /* Agrega la barra de desplazamiento vertical */
+            overflow: hidden; /* Elimina las barras de desplazamiento */
             flex-direction: column; /* Organiza el contenido en columna */
+            position: relative; /* Necesario para posicionar la nieve */
+        }
+
+        /* Nieve dorada - Crear partículas flotantes */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            background-color: gold; /* Color dorado para la nieve */
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall 1.5s linear infinite; /* Animación de caída rápida */
+            pointer-events: none; /* Para que no interfiera con otros elementos */
+        }
+
+        /* Animación de caída de la nieve */
+        @keyframes fall {
+            to {
+                transform: translateY(100vh); /* Hace que caiga hasta el final de la pantalla */
+            }
         }
 
         /* Estilo para el contenedor de la barra lateral */
@@ -67,19 +88,23 @@
 
         /* Estilo para el contenedor de iframe (video) */
         .iframe-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: relative;
             width: 80vw; /* El contenedor ocupa el 80% del ancho de la pantalla */
-            max-width: 800px; /* Limitar el ancho máximo */
-            background-color: black; /* Fondo negro que se ajusta al tamaño del video */
-            padding: 10px 0; /* Añadir un pequeño espacio alrededor del video */
-            box-sizing: border-box; /* Asegura que el espacio del borde y padding no afecte el tamaño del contenedor */
+            max-width: 1000px; /* Limitar el ancho máximo */
+            padding-top: 56.25%; /* Mantiene la relación de aspecto 16:9 */
+            background-color: black; /* Fondo negro */
+            overflow: hidden; /* Evita que el video se desborde */
+            margin-top: 80px; /* Mover el video hacia abajo */
+            border-radius: 10px; /* Borde redondeado para el contenedor */
+            transition: margin-left 0.3s ease; /* Animación para mover el video */
         }
 
         iframe {
-            width: 100%; /* El video ocupa el 100% del contenedor */
-            height: auto; /* La altura se ajustará proporcionalmente al ancho */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             border: none;
             border-radius: 10px;
         }
@@ -89,10 +114,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 20px;
+            margin-top: 30px; /* Espacio entre el video y los botones */
             width: 100%;
             justify-content: center;
             text-align: center;
+            position: relative;
+            z-index: 1; /* Asegura que los botones estén por encima del video */
+            transition: margin-left 0.3s ease; /* Animación para mover los botones junto con el video */
         }
 
         .change-page-btn {
@@ -113,7 +141,7 @@
 
         /* Estilo para el título animado */
         .animated-title {
-            font-size: 36px;
+            font-size: 24px; /* Reducción del tamaño del texto */
             font-family: 'Arial', sans-serif;
             font-weight: bold;
             text-align: center;
@@ -154,6 +182,8 @@
 
             .iframe-container {
                 width: 90vw; /* El iframe ocupa el 90% del ancho */
+                padding-top: 56.25%; /* Mantiene la relación de aspecto 16:9 */
+                margin-top: 30px; /* Menos margen en móviles */
             }
 
             .buttons-container {
@@ -163,6 +193,10 @@
 
             .change-page-btn {
                 width: 100%; /* Botón a tamaño completo en móviles */
+            }
+
+            .animated-title {
+                font-size: 18px; /* Tamaño de fuente más pequeño en móviles */
             }
         }
 
@@ -205,19 +239,34 @@
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v14.0"></script>
 
+    <!-- Crear nieve dorada -->
     <script>
+        // Crear nieve dorada
+        for (let i = 0; i < 100; i++) {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.style.left = `${Math.random() * 100}vw`; // Posicionar aleatoriamente en el ancho de la pantalla
+            snowflake.style.animationDuration = `${Math.random() * 1 + 1}s`; // Velocidad aleatoria
+            snowflake.style.animationDelay = `${Math.random() * 5}s`; // Tiempo aleatorio antes de empezar
+            document.body.appendChild(snowflake);
+        }
+
         // Función para abrir y cerrar la barra lateral
         function toggleSidebar() {
             const sidebar = document.querySelector('.sidebar');
+            const iframeContainer = document.querySelector('.iframe-container');
+            const buttonsContainer = document.querySelector('.buttons-container');
             const sidebarToggle = document.querySelector('.sidebar-toggle');
 
             if (sidebar.style.left === '0px') {
-                // Si la barra lateral está abierta, la cerramos
-                sidebar.style.left = '-250px';  // Desplazamos la barra lateral fuera de la pantalla
+                sidebar.style.left = '-250px'; // Desplazamos la barra lateral fuera de la pantalla
+                iframeContainer.style.marginLeft = '0'; // Restablecer la posición del video
+                buttonsContainer.style.marginLeft = '0'; // Restablecer la posición de los botones
                 sidebarToggle.innerHTML = '☰'; // Cambiar el icono de nuevo
             } else {
-                // Si la barra lateral está cerrada, la abrimos
-                sidebar.style.left = '0px';
+                sidebar.style.left = '0px'; // Abrir la barra lateral
+                iframeContainer.style.marginLeft = '250px'; // Empujar el video hacia la derecha
+                buttonsContainer.style.marginLeft = '250px'; // Empujar los botones también
                 sidebarToggle.innerHTML = '×'; // Cambiar el icono a "X"
             }
         }
