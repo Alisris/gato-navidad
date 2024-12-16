@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Incrustar Video</title>
+
+    <!-- Open Graph Meta Tags para redes sociales -->
+    <meta property="og:title" content="videomix-90s-flashback">
+    <meta property="og:description" content="Disfruta de una experiencia visual única con música y recuerdos de los 90s.">
+    <meta property="og:image" content="Dance 90.png">
+    <meta property="og:image:alt" content="Imagen de Dance 90s">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tusitio.com">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="videomix-90s-flashback">
+    <meta name="twitter:description" content="Disfruta de una experiencia visual única con música y recuerdos de los 90s.">
+    <meta name="twitter:image" content="Dance 90.png">
+
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            color: white;
+            overflow: hidden;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Nieve dorada */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            background-color: gold;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall 1.5s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            transition: left 0.3s ease;
+            z-index: 10;
+        }
+
+        .sidebar a {
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+            text-align: center;
+            border-bottom: 1px solid #444;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 30px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            z-index: 20;
+        }
+
+        /* Contenedor de video */
+        .iframe-container {
+            position: relative;
+            width: 80vw;
+            max-width: 1000px;
+            padding-top: 56.25%;
+            background-color: black;
+            overflow: hidden;
+            margin-top: 80px;
+            border-radius: 10px;
+        }
+
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+        }
+
+        /* Botones debajo del video */
+        .buttons-container {
+            display: flex;
+            flex-direction: row; /* Coloca los botones en una fila */
+            align-items: center;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 20px; /* Espacio horizontal entre los botones */
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .change-page-btn {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 200px;
+        }
+
+        .change-page-btn:hover {
+            background-color: #575757;
+        }
+
+        /* Contenedor de botones sociales */
+        .social-buttons {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .fb-share-button {
+            margin: 10px 0;
+        }
+
+        /* Título animado */
+        .animated-title {
+            font-size: 24px;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            text-align: center;
+            color: white;
+            animation: color-change 2s infinite;
+            position: absolute;
+            top: 20px;
+            width: 100%;
+        }
+
+        @keyframes color-change {
+            0% { color: red; }
+            20% { color: yellow; }
+            40% { color: green; }
+            60% { color: blue; }
+            80% { color: purple; }
+            100% { color: pink; }
+        }
+
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .iframe-container {
+                width: 90vw;
+                margin-top: 30px;
+            }
+
+            .buttons-container {
+                width: 100%;
+            }
+
+            .change-page-btn {
+                width: 100%;
+            }
+
+            .sidebar-toggle {
+                font-size: 30px;
+                padding: 12px;
+                top: 15px;
+                left: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="animated-title">videomix-90s-flashback</div>
+
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+    <div class="sidebar">
+        <a href="https://www.facebook.com" target="_blank">Facebook</a>
+        <a href="https://www.instagram.com" target="_blank">Instagram</a>
+        <a href="https://twitter.com" target="_blank">Twitter</a>
+    </div>
+
+    <div class="iframe-container">
+        <iframe src="https://workdrive.zohoexternal.com/embed/ghcz272a36f6756bc4d71881a90a79cce6a8a?toolbar=false&appearance=light&themecolor=green" scrolling="no" frameborder="0" allowfullscreen="true" title="Incrustar código"></iframe>
+    </div>
+
+    <div class="buttons-container">
+        <button onclick="location.href='index.html'" class="change-page-btn">Página Anterior</button>
+        <button onclick="location.href='index3.html'" class="change-page-btn">Siguiente Página</button>
+    </div>
+
+    <div class="social-buttons">
+        <div class="fb-share-button" 
+             data-href="https://alisris.github.io/gato-navidad/" 
+             data-layout="button" 
+             data-size="large">
+        </div>
+    </div>
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v14.0"></script>
+
+    <script>
+        for (let i = 0; i < 100; i++) {
+            let snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.style.left = `${Math.random() * 100}vw`;
+            snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            snowflake.style.animationDelay = `${Math.random() * 2}s`;
+            document.body.appendChild(snowflake);
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const sidebarToggle = document.querySelector('.sidebar-toggle');
+
+            if (sidebar.style.left === '0px') {
+                sidebar.style.left = '-250px';
+                sidebarToggle.innerHTML = '☰';
+            } else {
+                sidebar.style.left = '0px';
+                sidebarToggle.innerHTML = '×';
+            }
+        }
+    </script>
+</body>
+
+</html>
