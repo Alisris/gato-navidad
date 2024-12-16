@@ -14,10 +14,11 @@
             height: 100%;
             display: flex;
             justify-content: center; /* Centra el contenido horizontalmente */
-            align-items: flex-start; /* Centra el contenido verticalmente pero alineado a la parte superior */
+            align-items: center; /* Centra el contenido verticalmente */
             background-color: black; /* Fondo negro en toda la página */
             color: white;
             overflow-y: auto; /* Agrega la barra de desplazamiento vertical */
+            flex-direction: column; /* Organiza el contenido en columna */
         }
 
         /* Estilo para el contenedor de la barra lateral */
@@ -26,7 +27,7 @@
             top: 60px; /* Deja espacio para el título */
             left: -250px; /* Inicia fuera de la pantalla */
             width: 250px; /* Barra lateral más ancha */
-            height: calc(100% - 60px); /* Ajustamos la altura para que no se superponga con el título */
+            height: 100%; /* Ajustamos la altura para que no se superponga con el título */
             background-color: #333; /* Fondo oscuro para la sidebar */
             display: flex;
             flex-direction: column;
@@ -35,7 +36,6 @@
             transition: left 0.3s ease; /* Animación para abrir/cerrar */
         }
 
-        /* Asegurarse de que los enlaces estén alineados y no se desborden */
         .sidebar a {
             color: white;
             padding: 15px;
@@ -51,12 +51,11 @@
             background-color: #575757;
         }
 
-        /* Estilo para el botón que abre/cierra la barra lateral */
         .sidebar-toggle {
             position: absolute;
             top: 20px;
             left: 20px;
-            font-size: 10px;
+            font-size: 20px;
             background-color: #333;
             color: white;
             border: none;
@@ -66,45 +65,50 @@
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
         }
 
-        /* Contenedor de iframe con flexbox para centrarlo */
+        /* Estilo para el contenedor de iframe (video) */
         .iframe-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: calc(100% - 250px); /* Ajuste el iframe para el nuevo tamaño de la barra lateral */
-            height: calc(100% - 60px); /* Ajuste la altura para no solaparse con el título */
-            background-color: black; /* Asegura que el fondo de la sección del video también sea negro */
+            width: 80vw; /* El contenedor ocupa el 80% del ancho de la pantalla */
+            max-width: 800px; /* Limitar el ancho máximo */
+            background-color: black; /* Fondo negro que se ajusta al tamaño del video */
+            padding: 10px 0; /* Añadir un pequeño espacio alrededor del video */
+            box-sizing: border-box; /* Asegura que el espacio del borde y padding no afecte el tamaño del contenedor */
         }
 
         iframe {
-            width: 800px; /* Tamaño fijo para el video */
-            height: 450px; /* Tamaño fijo para el video */
+            width: 100%; /* El video ocupa el 100% del contenedor */
+            height: auto; /* La altura se ajustará proporcionalmente al ancho */
             border: none;
             border-radius: 10px;
         }
 
-        /* Asegurar que la página sea responsiva y la sidebar no se solape con el contenido */
-        @media screen and (max-width: 768px) {
-            .sidebar {
-                width: 80px; /* Sidebar más pequeño en pantallas pequeñas */
-            }
+        /* Estilo para los botones debajo del video */
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            width: 100%;
+            justify-content: center;
+            text-align: center;
+        }
 
-            .iframe-container {
-                width: calc(100% - 80px); /* Ajusta el iframe para pantallas pequeñas */
-                height: 100%;
-                justify-content: center;
-                align-items: center;
-            }
+        .change-page-btn {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            font-size: 16px;
+            width: 200px; /* Controla el tamaño del botón */
+        }
 
-            iframe {
-                width: 100%; /* El iframe ocupará el ancho disponible */
-                height: 450px; /* Mantiene una altura fija */
-            }
-
-            .sidebar-toggle {
-                left: 10px; /* Ajusta la posición del botón en pantallas pequeñas */
-                font-size: 25px;
-            }
+        .change-page-btn:hover {
+            background-color: #575757;
         }
 
         /* Estilo para el título animado */
@@ -142,6 +146,26 @@
             }
         }
 
+        /* Media Queries para Pantallas Móviles */
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                width: 200px; /* Reducir tamaño de la barra lateral en pantallas pequeñas */
+            }
+
+            .iframe-container {
+                width: 90vw; /* El iframe ocupa el 90% del ancho */
+            }
+
+            .buttons-container {
+                width: 100%;
+                padding: 0 20px;
+            }
+
+            .change-page-btn {
+                width: 100%; /* Botón a tamaño completo en móviles */
+            }
+        }
+
     </style>
 </head>
 
@@ -164,6 +188,22 @@
     <div class="iframe-container">
         <iframe src="https://workdrive.zohoexternal.com/embed/so9bsc07c4b6b9c514ace9d5567bb64beac11?toolbar=false&appearance=light&themecolor=green" scrolling="no" frameborder="0" allowfullscreen="true" title="Incrustar código"></iframe>
     </div>
+
+    <!-- Botones debajo del video -->
+    <div class="buttons-container">
+        <!-- Botón para cambiar de página -->
+        <button onclick="location.href='index1.html'" class="change-page-btn">Siguiente página</button>
+
+        <!-- Botón "Me gusta" de Facebook -->
+        <div class="fb-like" data-href="https://www.facebook.com/share/p/fj7nnjjMHb3eevsV//TuPaginaDeFacebook" data-width="150" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
+
+        <!-- Botón "Seguir" de Facebook -->
+        <div class="fb-follow" data-href="https://www.facebook.com/share/p/fj7nnjjMHb3eevsV/" data-width="200" data-show-faces="true" data-size="large"></div>
+    </div>
+
+    <!-- SDK de Facebook -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v14.0"></script>
 
     <script>
         // Función para abrir y cerrar la barra lateral
