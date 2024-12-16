@@ -5,184 +5,184 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Video Playlist UI Design</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+    <title>Incrustar Video</title>
     <style>
-        * {
+        /* Establecer el fondo de pantalla negro para todo el cuerpo */
+        body, html {
             margin: 0;
             padding: 0;
-            list-style: none;
+            height: 100%;
+            display: flex;
+            justify-content: center; /* Centra el contenido horizontalmente */
+            align-items: flex-start; /* Centra el contenido verticalmente pero alineado a la parte superior */
+            background-color: black; /* Fondo negro en toda la página */
+            color: white;
+            overflow-y: auto; /* Agrega la barra de desplazamiento vertical */
+        }
+
+        /* Estilo para el contenedor de la barra lateral */
+        .sidebar {
+            position: fixed;
+            top: 60px; /* Deja espacio para el título */
+            left: -250px; /* Inicia fuera de la pantalla */
+            width: 250px; /* Barra lateral más ancha */
+            height: calc(100% - 60px); /* Ajustamos la altura para que no se superponga con el título */
+            background-color: #333; /* Fondo oscuro para la sidebar */
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Sombra sutil para la barra lateral */
+            transition: left 0.3s ease; /* Animación para abrir/cerrar */
+        }
+
+        /* Asegurarse de que los enlaces estén alineados y no se desborden */
+        .sidebar a {
+            color: white;
+            padding: 15px;
             text-decoration: none;
-        }
-
-        body {
-            height: 100vh;
-            background: #dde1e7;
-            font-family: Arial;
-            font-weight: 600;
-            position: relative;
-            scroll-behavior: smooth;
-        }
-
-        .container {
-            width: 100vw;
-            display: grid;
-            grid-template-columns: 1.8fr 1.2fr;
-            gap: 1rem;
-            padding: .5rem 1rem;
-            text-transform: capitalize;
-        }
-
-        @media screen and (max-width: 990px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .main-video,
-        .video-playlist {
+            text-align: center;
             width: 100%;
-            height: 30rem;
+            border-bottom: 1px solid #444;
+            transition: background-color 0.3s ease;
+            box-sizing: border-box; /* Asegura que el padding no sobresalga */
         }
 
-        .video-playlist .title {
-            padding-left: 1rem;
+        .sidebar a:hover {
+            background-color: #575757;
         }
 
-        .video-playlist>p {
-            padding: 1rem;
-            color: var(--secondary);
+        /* Estilo para el botón que abre/cierra la barra lateral */
+        .sidebar-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
         }
 
-        .video-playlist .videos {
-            height: 70%;
-            overflow-y: auto;
-        }
-
-        .video-playlist .videos .video {
-            position: relative;
-            width: 100%;
-            height: 4rem;
+        /* Contenedor de iframe con flexbox para centrarlo */
+        .iframe-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 0 1rem;
-            margin-top: .1rem;
-            cursor: pointer;
-            border-radius: .5rem;
+            width: calc(100% - 250px); /* Ajuste el iframe para el nuevo tamaño de la barra lateral */
+            height: calc(100% - 60px); /* Ajuste la altura para no solaparse con el título */
+            background-color: black; /* Asegura que el fondo de la sección del video también sea negro */
         }
 
-        .video-playlist .videos .video:hover {
-            background-color: #0003;
+        iframe {
+            width: 800px; /* Tamaño fijo para el video */
+            height: 450px; /* Tamaño fijo para el video */
+            border: none;
+            border-radius: 10px;
         }
 
-        .video-playlist .videos .video.active {
-            background-color: #0003;
-            color: var(--secondary);
+        /* Asegurar que la página sea responsiva y la sidebar no se solape con el contenido */
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                width: 80px; /* Sidebar más pequeño en pantallas pequeñas */
+            }
+
+            .iframe-container {
+                width: calc(100% - 80px); /* Ajusta el iframe para pantallas pequeñas */
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+            }
+
+            iframe {
+                width: 100%; /* El iframe ocupará el ancho disponible */
+                height: 450px; /* Mantiene una altura fija */
+            }
+
+            .sidebar-toggle {
+                left: 10px; /* Ajusta la posición del botón en pantallas pequeñas */
+                font-size: 25px;
+            }
         }
 
-        .main-video video {
-            width: 100%;
-            border-radius: .5rem;
-            preload: auto;
-            controls: true;
+        /* Estilo para el título animado */
+        .animated-title {
+            font-size: 36px;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            text-align: center;
+            color: white;
+            animation: color-change 2s infinite; /* Aplicamos la animación de cambio de color */
+            position: absolute; /* Hace que el título sea fijo en la parte superior */
+            top: 20px; /* Deja espacio desde la parte superior */
+            width: 100%; /* Asegura que el título ocupe todo el ancho */
         }
 
-        .video img {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 1.5rem;
-            height: 1.5rem;
-            filter: invert(100%);
+        /* Definir la animación para el cambio de color */
+        @keyframes color-change {
+            0% {
+                color: red;
+            }
+            20% {
+                color: yellow;
+            }
+            40% {
+                color: green;
+            }
+            60% {
+                color: blue;
+            }
+            80% {
+                color: purple;
+            }
+            100% {
+                color: pink;
+            }
         }
 
-        .video-playlist .videos .video.active img {
-            filter: invert(100%) sepia(100%) saturate(2000%) hue-rotate(360deg);
-        }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
-        <div class="main-video">
-            <video id="main-video" controls preload="auto" autoplay>
-                <source src="https://download1334.mediafire.com/ngezxp9t716gEifoZFjq8fRY_TMBEkxf_yJNPpbr658GkGdDufTopLwHRiQbrrjd2w0XJZgOZnaKA_bWPIUwEdCVLFSiWuiyeVgh_d85MxqOk40pOA598b1CCxApw5haXDMBwVdnXlH2mWxWC4ygjikEuvFaiJOz5te5_1eOF0AfDyk/53rcpojvkzo7ab0/90s-techno-pop-video-mix-by-dj-soundhunter.mp4" type="video/mp4">
-                Tu navegador no soporta el elemento de video.
-            </video>
-        </div>
+    <!-- Título animado que cambia de color -->
+    <div class="animated-title">videomix-90s-flashback</div>
 
-        <div class="video-playlist">
-            <p class="title">Lista de Videos</p>
-            <div class="videos">
-                <!-- Video 1: 90s Flashback -->
-                <div class="video" data-index="0">
-                    <h3>Video 1: 90s Flashback</h3>
-                    <img src="https://via.placeholder.com/50" alt="Thumbnail">
-                </div>
-                <!-- Video 2: 90s Techno Pop Mix -->
-                <div class="video" data-index="1">
-                    <h3>Video 2: 90s Techno Pop Mix</h3>
-                    <img src="https://via.placeholder.com/50" alt="Thumbnail">
-                </div>
-                <!-- Video 3: 90s Flashback Mix -->
-                <div class="video" data-index="2">
-                    <h3>Video 3: 90s Flashback Mix</h3>
-                    <img src="https://via.placeholder.com/50" alt="Thumbnail">
-                </div>
-            </div>
-        </div>
+    <!-- Botón para abrir/cerrar la barra lateral -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+    <!-- Sidebar con enlaces a Facebook -->
+    <div class="sidebar">
+        <a href="https://www.facebook.com" target="_blank">Facebook</a>
+        <a href="https://www.instagram.com" target="_blank">Instagram</a>
+        <a href="https://twitter.com" target="_blank">Twitter</a>
+    </div>
+
+    <!-- Contenedor para el video incrustado -->
+    <div class="iframe-container">
+        <iframe src="https://workdrive.zohoexternal.com/embed/so9bsc07c4b6b9c514ace9d5567bb64beac11?toolbar=false&appearance=light&themecolor=green" scrolling="no" frameborder="0" allowfullscreen="true" title="Incrustar código"></iframe>
     </div>
 
     <script>
-        const videoContainer = document.querySelector('.video-playlist .videos');
-        const mainVideo = document.querySelector('#main-video');
-        const mainVideoTitle = document.querySelector('.main-video h3');
+        // Función para abrir y cerrar la barra lateral
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const sidebarToggle = document.querySelector('.sidebar-toggle');
 
-        const data = [
-            {
-                title: '90s Flashback',
-                name: 'videomix-90s-flashback.mp4',
-                url: 'https://download1334.mediafire.com/ngezxp9t716gEifoZFjq8fRY_TMBEkxf_yJNPpbr658GkGdDufTopLwHRiQbrrjd2w0XJZgOZnaKA_bWPIUwEdCVLFSiWuiyeVgh_d85MxqOk40pOA598b1CCxApw5haXDMBwVdnXlH2mWxWC4ygjikEuvFaiJOz5te5_1eOF0AfDyk/53rcpojvkzo7ab0/90s-techno-pop-video-mix-by-dj-soundhunter.mp4'
-            },
-            {
-                title: '90s Techno Pop Mix',
-                name: '90s-techno-pop-video-mix.mp4',
-                url: 'https://download1655.mediafire.com/st1pojy8orngd6KZJsF58POgDk3kSlEB93WMi5FLkDWMtdq8hzLs36w9E2gApwefc__5f4e9YlEj-uTXeu5YqUUOz12d_jF3EC3FtygqwVy7qxVQ9x3l9oDhGfClpqqg8xRMIzYTNf9QfrB5qqR_a6q74CSWJS4Ld1o6SccTbaGHNEs/fv6oeudf0dj2nj9/videomix-90s-flashback.mp4'
-            },
-            {
-                title: '90s Flashback Mix',
-                name: '90s-flashback-mix.mp4',
-                url: 'https://download1655.mediafire.com/601oaobwhjfgjI2p7hlR_62WcNx0ZVLrLMdB50Veee5PC9Zz5TggQBnNPAtdBIoD1Y1S39Mjfr5pciSVrC7E7fM-2S0-E9ImzNpXRtL_ECXWTwq_T1z9ao7zQYaQcsBboydtSghNqU2e5VRPcEbkmlB4WCSFGzZrlqQfZ8wBfMcIZm0/fv6oeudf0dj2nj9/videomix-90s-flashback.mp4'
+            if (sidebar.style.left === '0px') {
+                // Si la barra lateral está abierta, la cerramos
+                sidebar.style.left = '-250px';  // Desplazamos la barra lateral fuera de la pantalla
+                sidebarToggle.innerHTML = '☰'; // Cambiar el icono de nuevo
+            } else {
+                // Si la barra lateral está cerrada, la abrimos
+                sidebar.style.left = '0px';
+                sidebarToggle.innerHTML = '×'; // Cambiar el icono a "X"
             }
-        ];
-
-        data.forEach((video, index) => {
-            const videoElement = `
-                <div class="video" data-index="${index}">
-                    <h3>${video.title}</h3>
-                    <img src="https://via.placeholder.com/50" alt="Thumbnail">
-                </div>
-            `;
-            videoContainer.innerHTML += videoElement;
-        });
-
-        document.querySelectorAll('.video-playlist .video').forEach((video, index) => {
-            video.addEventListener('click', () => {
-                document.querySelectorAll('.video-playlist .video').forEach(v => v.classList.remove('active'));
-                video.classList.add('active');
-                mainVideo.src = data[index].url;
-                mainVideoTitle.textContent = data[index].title;
-                mainVideo.load();
-                mainVideo.play();
-            });
-        });
+        }
     </script>
+
 </body>
 
 </html>
