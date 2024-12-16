@@ -8,7 +8,7 @@
     <title>Incrustar Video</title>
 
     <!-- Open Graph Meta Tags para redes sociales -->
-    <meta property="og:title" content="90s-techno-pop-video-mix">
+    <meta property="og:title" content="videomix-90s-flashback">
     <meta property="og:description" content="Disfruta de una experiencia visual única con música y recuerdos de los 90s.">
     <meta property="og:image" content="Dance 90.png"> <!-- Ruta de la imagen -->
     <meta property="og:image:alt" content="Imagen de Dance 90s">
@@ -17,7 +17,7 @@
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="90s-techno-pop-video-mix">
+    <meta name="twitter:title" content="videomix-90s-flashback">
     <meta name="twitter:description" content="Disfruta de una experiencia visual única con música y recuerdos de los 90s.">
     <meta name="twitter:image" content="Dance 90.png"> <!-- Ruta de la imagen -->
 
@@ -60,11 +60,11 @@
         /* Estilo para el contenedor de la barra lateral */
         .sidebar {
             position: fixed;
-            top: 60px; /* Deja espacio para el título */
+            top: 0;
             left: -250px; /* Inicia fuera de la pantalla */
             width: 250px; /* Barra lateral más ancha */
             height: 100%; /* Ajustamos la altura para que no se superponga con el título */
-            background-color: #333; /* Fondo oscuro para la sidebar */
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente */
             display: flex;
             flex-direction: column;
             align-items: stretch;
@@ -114,7 +114,8 @@
             overflow: hidden; /* Evita que el video se desborde */
             margin-top: 80px; /* Mover el video hacia abajo */
             border-radius: 10px; /* Borde redondeado para el contenedor */
-            transition: margin-left 0.3s ease; /* Animación para mover el video */
+            transition: width 0.3s ease; /* Animación para reducir el tamaño */
+            z-index: 1; /* Asegura que el contenedor del video esté por encima del fondo */
         }
 
         iframe {
@@ -137,8 +138,7 @@
             justify-content: center;
             text-align: center;
             position: relative;
-            z-index: 1; /* Asegura que los botones estén por encima del video */
-            transition: margin-left 0.3s ease; /* Animación para mover los botones junto con el video */
+            z-index: 2; /* Asegura que los botones estén por encima del video */
         }
 
         .change-page-btn {
@@ -213,10 +213,6 @@
                 width: 100%; /* Botón a tamaño completo en móviles */
             }
 
-            .animated-title {
-                font-size: 18px; /* Tamaño de fuente más pequeño en móviles */
-            }
-
             .sidebar-toggle {
                 font-size: 30px; /* Asegura que el botón sea lo suficientemente grande en móviles */
                 padding: 12px; /* Ajustar padding */
@@ -231,7 +227,7 @@
 <body>
 
     <!-- Título animado que cambia de color -->
-    <div class="animated-title">90s-techno-pop-video-mix</div>
+    <div class="animated-title">videomix-90s-flashback</div>
 
     <!-- Botón para abrir/cerrar la barra lateral -->
     <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
@@ -276,19 +272,13 @@
         // Función para abrir y cerrar la barra lateral
         function toggleSidebar() {
             const sidebar = document.querySelector('.sidebar');
-            const iframeContainer = document.querySelector('.iframe-container');
-            const buttonsContainer = document.querySelector('.buttons-container');
             const sidebarToggle = document.querySelector('.sidebar-toggle');
 
             if (sidebar.style.left === '0px') {
                 sidebar.style.left = '-250px'; // Desplazamos la barra lateral fuera de la pantalla
-                iframeContainer.style.marginLeft = '0'; // Restablecer la posición del video
-                buttonsContainer.style.marginLeft = '0'; // Restablecer la posición de los botones
                 sidebarToggle.innerHTML = '☰'; // Cambiar el icono de nuevo
             } else {
                 sidebar.style.left = '0px'; // Abrir la barra lateral
-                iframeContainer.style.marginLeft = '250px'; // Empujar el video hacia la derecha
-                buttonsContainer.style.marginLeft = '250px'; // Empujar los botones también
                 sidebarToggle.innerHTML = '×'; // Cambiar el icono a "X"
             }
         }
