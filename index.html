@@ -1,147 +1,307 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reproductor de Videos</title>
-
-    <!-- Estilos CSS (antes de ]]></b:skin>) -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Video Playlist UI Design</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
     <style>
-        #vplaylist, #vplayer {
-            width: 90%; /* Ancho de todo el contenedor */
-            padding: 20px;
-            margin: 0 auto;
-            display: block;
-            text-align: center;
-        }
-
-        #vplayer {
-            background: #232323; /* Fondo del primer contenedor */
-            padding: 10px 20px;
-        }
-
-        video {
-            width: 95%; /* Ancho del reproductor */
-            background: #f1f3f4;
-            margin: 0 auto;
-            display: inline-block;
-        }
-
-        #vplayer:after {
-            /* Imagen animada */
-            padding-left: 20px;
-        }
-
-        #vplaylist {
-            margin: 0 auto 20px auto;
-            display: block;
-            background: #23a6b3; /* Fondo del segundo contenedor */
-            border-top: 1px solid #fff;
-            text-align: left;
-            font-size: 14px; /* Estilos de fuente */
-            font-family: 'Arial', Helvetica, sans-serif;
-            font-weight: normal;
-            height: 125px; /* Alto del contenedor */
-            overflow: auto; /* Barra de desplazamiento */
-        }
-
-        #vplaylist li, #vplaylist ul li {
-            background-image: none;
-            list-style-type: none;
-            padding: 0;
+        * {
             margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
         }
 
-        #vplaylist li a {
-            color: #ccc; /* Color de las canciones */
-            background: #232323; /* Fondo de las canciones */
-            padding: 7px 2px;
+        body {
+            height: 100vh;
+            background: #dde1e7;
+            font-family: Arial;
+            font-weight: 600;
+            position: relative;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 100vw;
+            display: grid;
+            grid-template-columns: 1.8fr 1.2fr;
+            gap: 1rem;
+            padding: .5rem 1rem;
+            text-transform: capitalize;
+        }
+
+        @media screen and (max-width: 990px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .main-video,
+        .video-playlist {
+            width: 100%;
+            height: 30rem;
+        }
+
+        .video-playlist .title {
+            padding-left: 1rem;
+        }
+
+        .video-playlist>p {
+            padding: 1rem;
+            color: var(--secondary);
+        }
+
+        .video-playlist .videos {
+            height: 70%;
+            overflow-y: auto;
+        }
+
+        .video-playlist .videos .video {
+            position: relative;
+            width: 100%;
+            height: 4rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 1rem;
+            margin-top: .1rem;
+            cursor: pointer;
+            border-radius: .5rem;
+        }
+
+        .video-playlist .videos .video:hover {
+            background-color: #0003;
+        }
+
+        .video-playlist .videos .video.active {
+            background-color: #0003;
+            color: var(--secondary);
+        }
+
+        .main-video video {
+            width: 100%;
+            border-radius: .5rem;
+        }
+
+        .video img {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.5rem;
+            height: 1.5rem;
+            filter: invert(100%);
+        }
+
+        .video-playlist .videos .video.active img {
+            filter: invert(100%) sepia(100%) saturate(2000%) hue-rotate(360deg);
+        }
+
+        /* Sidebar */
+        #check {
+            display: none;
+        }
+
+        label #btn,
+        label #cancle {
+            position: absolute;
+            cursor: pointer;
+            background: #dde1e7;
+            box-shadow: -3px -3px 7px #ffffff73,
+                2px 2px 5px rgba(128, 135, 148, 0.562);
+            color: rgb(4, 145, 216);
+            border-radius: 3px;
+        }
+
+        label #btn {
+            left: 40px;
+            top: 25px;
+            font-size: 35px;
+            color: rgb(14, 186, 243);
+            padding: 6px 12px;
+            transition: all 0.5s;
+        }
+
+        #cancle {
+            z-index: 1111;
+            left: -195px;
+            top: 17px;
+            font-size: 30px;
+            color: #0a5275;
+            padding: 4px 9px;
+            transition: all 0.5s;
+        }
+
+        .sidebar {
+            position: absolute;
+            left: -250px;
+            width: 250px;
+            background: #dde1e7;
+            box-shadow: -3px -3px 7px #ffffff73,
+                2px 2px 5px rgba(128, 135, 148, 0.562);
+            transition: all 0.5s ease;
+        }
+
+        #check:checked~.sidebar {
+            left: 0;
+        }
+
+        #check:checked~label #btn {
+            left: 250px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #check:checked~label #cancle {
+            left: 245px;
+        }
+
+        #check:checked~section {
+            margin-left: 250px;
+        }
+
+        .sidebar header {
+            font-size: 24px;
+            color: rgb(57, 57, 57);
+            text-align: center;
+            line-height: 30px;
+            background: #dde1e7;
+            user-select: none;
+        }
+
+        .sidebar header p {
+            padding: 15px;
+        }
+
+        .sidebar ul a {
             display: block;
-            padding-left: 10px;
-            text-decoration: none;
+            height: 100%;
+            width: 100%;
+            line-height: 56px;
+            font-size: 18px;
+            color: rgb(68, 68, 68);
+            padding-left: 40px;
+            box-sizing: border-box;
+            margin-top: 10px;
+            box-shadow: -3px -3px 7px #ffffff,
+                2px 2px 5px rgba(128, 135, 148, 0.562);
+            transition: 0.4s;
         }
 
-        #vplaylist li a:hover {
-            background: #23a6b3; /* Color de fondo al pasar el cursor */
-            text-decoration: none;
+        .sidebar ul a i {
+            margin-right: 16px;
         }
 
-        #vplaylist .active a {
-            color: #fff; /* Color de la canción activa */
-            font-style: Georgia;
-            text-decoration: none;
+        ul li:hover a {
+            padding-left: 70px;
+            color: rgb(0, 158, 216);
+            box-shadow: inset -1px -1px 2px #dde1e7;
         }
 
-        #vplaylist .active a:before {
-            content: "\25B6";
-            color: #fff; /* Color del icono Play */
-            font-style: normal;
-            padding-right: 8px;
+        /* Social Links */
+        .social-links i {
+            padding: 10px;
+            margin-left: 16px;
+            margin-top: 10px;
+            color: rgb(4, 61, 118);
+            background: #dde1e7;
+            font-size: 20px;
+            box-shadow: -3px -3px 7px #ffffff,
+                2px 2px 5px rgba(128, 135, 148, 0.562);
         }
 
-        #vplaylist .active a:hover {
-            color: #000; /* Color de la canción activa al pasar el cursor */
+        .social-links i:hover {
+            color: rgb(0, 170, 255);
         }
     </style>
 </head>
+
 <body>
-    <!-- Contenido HTML (para colocar en un gadget o una entrada) -->
-    <div id="vplayer">
-        <video controls='' height='224' width='100%' id='video' preload='auto' tabindex='0' type='video/mp4'>
-            <source src="https://download1655.mediafire.com/36tf485gn2qgGW5lonYCk_4WanqPHoCNExvl2p6xh_2EKvimDoQF0MXPvb2T45OEb_lVYbuutFZ--29iBWUyjqjoKIZ1nKykGZxWXzgQvkU8UMBaFApal4ju4YIHQf_Y3GuPK8tEWW01uaVOS9vdbZ7CkWPabGgRlw0Oa5mJQ37mtfs/fv6oeudf0dj2nj9/videomix-90s-flashback.mp4" type="video/mp4"></source>
-        </video>
+    <!-- Sidebar -->
+    <input type="checkbox" id="check">
+    <label for="check" id="btn">&#9776;</label>
+    <div class="sidebar">
+        <header>
+            <img src="https://via.placeholder.com/50" alt="Logo">
+            <p>Reproductor de Videos</p>
+        </header>
+        <ul>
+            <li><a href="#"><i class="fas fa-home"></i>Inicio</a></li>
+            <li><a href="#"><i class="fas fa-video"></i>Mis Videos</a></li>
+            <li><a href="#"><i class="fas fa-cogs"></i>Configuraciones</a></li>
+        </ul>
+        <div class="social-links">
+            <a href="#" class="Youtube"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="Discord"><i class="fab fa-discord"></i></a>
+            <a href="#" class="Telegram"><i class="fab fa-telegram"></i></a>
+        </div>
     </div>
 
-    <ul id="vplaylist">
-        <li class="active"><a href="https://download1655.mediafire.com/36tf485gn2qgGW5lonYCk_4WanqPHoCNExvl2p6xh_2EKvimDoQF0MXPvb2T45OEb_lVYbuutFZ--29iBWUyjqjoKIZ1nKykGZxWXzgQvkU8UMBaFApal4ju4YIHQf_Y3GuPK8tEWW01uaVOS9vdbZ7CkWPabGgRlw0Oa5mJQ37mtfs/fv6oeudf0dj2nj9/videomix-90s-flashback.mp4">90s Flashback Video Mix</a></li>
-        <li><a href="https://download1334.mediafire.com/ngezxp9t716gEifoZFjq8fRY_TMBEkxf_yJNPpbr658GkGdDufTopLwHRiQbrrjd2w0XJZgOZnaKA_bWPIUwEdCVLFSiWuiyeVgh_d85MxqOk40pOA598b1CCxApw5haXDMBwVdnXlH2mWxWC4ygjikEuvFaiJOz5te5_1eOF0AfDyk/53rcpojvkzo7ab0/90s-techno-pop-video-mix-by-dj-soundhunter.mp4">90s Techno Pop Video Mix</a></li>
-    </ul>
+    <div class="container">
+        <div class="main-video">
+            <video id="main-video" controls>
+                <source src="https://download1655.mediafire.com/601oaobwhjfgjI2p7hlR_62WcNx0ZVLrLMdB50Veee5PC9Zz5TggQBnNPAtdBIoD1Y1S39Mjfr5pciSVrC7E7fM-2S0-E9ImzNpXRtL_ECXWTwq_T1z9ao7zQYaQcsBboydtSghNqU2e5VRPcEbkmlB4WCSFGzZrlqQfZ8wBfMcIZm0/fv6oeudf0dj2nj9/videomix-90s-flashback.mp4" type="video/mp4">
+                Tu navegador no soporta la etiqueta de video.
+            </video>
+        </div>
 
-    <!-- Código JavaScript (antes de </body>) -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+        <div class="video-playlist">
+            <p class="title">Lista de Videos</p>
+            <div class="videos">
+                <div class="video">
+                    <h3>Video 1: 90s Flashback</h3>
+                    <img src="https://via.placeholder.com/50" alt="Thumbnail">
+                </div>
+                <div class="video">
+                    <h3>Video 2: 90s Techno Pop Mix</h3>
+                    <img src="https://via.placeholder.com/50" alt="Thumbnail">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        //<![CDATA[
-        var video;
-        var vplaylist;
-        var vtracks;
-        var vcurrent;
-        initvideo();
+        const videoContainer = document.querySelector('.video-playlist .videos');
+        const mainVideo = document.querySelector('#main-video');
+        const mainVideoTitle = document.querySelector('.main-video h3');
 
-        function initvideo() {
-            vcurrent = 0;
-            video = $('video');
-            vplaylist = $('#vplaylist');
-            vtracks = vplaylist.find('li a');
-            vlen = vtracks.length - 1;
-            video[0].volume = 1;
+        const data = [
+            {
+                title: '90s Flashback',
+                name: 'videomix-90s-flashback.mp4'
+            },
+            {
+                title: '90s Techno Pop Mix',
+                name: '90s-techno-pop-video-mix.mp4'
+            }
+        ];
 
-            vplaylist.find('a').click(function(e) {
-                e.preventDefault();
-                link = $(this);
-                vcurrent = link.parent().index();
-                runvideo(link, video[0]);
+        data.forEach((video, index) => {
+            const videoElement = `
+                <div class="video" data-index="${index}">
+                    <h3>${video.title}</h3>
+                    <img src="https://via.placeholder.com/50" alt="Thumbnail">
+                </div>
+            `;
+            videoContainer.innerHTML += videoElement;
+        });
+
+        document.querySelectorAll('.video-playlist .video').forEach((video, index) => {
+            video.addEventListener('click', () => {
+                document.querySelectorAll('.video-playlist .video').forEach(v => v.classList.remove('active'));
+                video.classList.add('active');
+                mainVideo.src = `https://download1655.mediafire.com/601oaobwhjfgjI2p7hlR_62WcNx0ZVLrLMdB50Veee5PC9Zz5TggQBnNPAtdBIoD1Y1S39Mjfr5pciSVrC7E7fM-2S0-E9ImzNpXRtL_ECXWTwq_T1z9ao7zQYaQcsBboydtSghNqU2e5VRPcEbkmlB4WCSFGzZrlqQfZ8wBfMcIZm0/fv6oeudf0dj2nj9/videomix-90s-flashback.mp4`;
+                mainVideoTitle.textContent = data[index].title;
             });
-
-            video[0].addEventListener('ended', function(e) {
-                vcurrent++;
-                if (vcurrent > vlen) {
-                    vcurrent = 0;
-                    link = vplaylist.find('a')[0];
-                } else {
-                    link = vplaylist.find('a')[vcurrent];
-                }
-                runvideo($(link), video[0]);
-            });
-        }
-
-        function runvideo(link, player) {
-            player.src = link.attr('href');
-            par = link.parent();
-            par.addClass('active').siblings().removeClass('active');
-            video[0].load();
-            video[0].play();
-        }
-        //]]>
+        });
     </script>
 </body>
+
 </html>
