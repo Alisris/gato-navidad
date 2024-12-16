@@ -55,6 +55,7 @@
             align-items: stretch;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Sombra sutil para la barra lateral */
             transition: left 0.3s ease; /* Animación para abrir/cerrar */
+            z-index: 10; /* Asegura que la barra lateral esté por encima de otros elementos */
         }
 
         .sidebar a {
@@ -72,18 +73,20 @@
             background-color: #575757;
         }
 
+        /* Botón para abrir/cerrar la barra lateral */
         .sidebar-toggle {
-            position: absolute;
+            position: fixed;
             top: 20px;
             left: 20px;
-            font-size: 20px;
+            font-size: 30px;
             background-color: #333;
             color: white;
             border: none;
-            padding: 10px;
+            padding: 15px;
             cursor: pointer;
             border-radius: 50%;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            z-index: 20; /* Asegura que el botón siempre esté por encima */
         }
 
         /* Estilo para el contenedor de iframe (video) */
@@ -198,6 +201,13 @@
             .animated-title {
                 font-size: 18px; /* Tamaño de fuente más pequeño en móviles */
             }
+
+            .sidebar-toggle {
+                font-size: 30px; /* Asegura que el botón sea lo suficientemente grande en móviles */
+                padding: 12px; /* Ajustar padding */
+                top: 15px; /* Ajustar la posición superior */
+                left: 15px; /* Ajustar la posición izquierda */
+            }
         }
 
     </style>
@@ -227,30 +237,9 @@
     <div class="buttons-container">
         <!-- Botón para cambiar de página -->
         <button onclick="location.href='index1.html'" class="change-page-btn">Siguiente página</button>
-
-        <!-- Botón "Me gusta" de Facebook -->
-        <div class="fb-like" data-href="https://www.facebook.com/share/p/fj7nnjjMHb3eevsV//TuPaginaDeFacebook" data-width="150" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
-
-        <!-- Botón "Seguir" de Facebook -->
-        <div class="fb-follow" data-href="https://www.facebook.com/share/p/fj7nnjjMHb3eevsV/" data-width="200" data-show-faces="true" data-size="large"></div>
     </div>
 
-    <!-- SDK de Facebook -->
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v14.0"></script>
-
-    <!-- Crear nieve dorada -->
     <script>
-        // Crear nieve dorada
-        for (let i = 0; i < 100; i++) {
-            const snowflake = document.createElement('div');
-            snowflake.classList.add('snowflake');
-            snowflake.style.left = `${Math.random() * 100}vw`; // Posicionar aleatoriamente en el ancho de la pantalla
-            snowflake.style.animationDuration = `${Math.random() * 1 + 1}s`; // Velocidad aleatoria
-            snowflake.style.animationDelay = `${Math.random() * 5}s`; // Tiempo aleatorio antes de empezar
-            document.body.appendChild(snowflake);
-        }
-
         // Función para abrir y cerrar la barra lateral
         function toggleSidebar() {
             const sidebar = document.querySelector('.sidebar');
