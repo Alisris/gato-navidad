@@ -87,6 +87,9 @@
         .main-video video {
             width: 100%;
             border-radius: .5rem;
+            /* Preload the video */
+            preload: auto;
+            controls: true;
         }
 
         .video img {
@@ -246,20 +249,20 @@
 
     <div class="container">
         <div class="main-video">
-            <video id="main-video" controls>
+            <video id="main-video" controls preload="auto">
                 <source src="https://download1655.mediafire.com/601oaobwhjfgjI2p7hlR_62WcNx0ZVLrLMdB50Veee5PC9Zz5TggQBnNPAtdBIoD1Y1S39Mjfr5pciSVrC7E7fM-2S0-E9ImzNpXRtL_ECXWTwq_T1z9ao7zQYaQcsBboydtSghNqU2e5VRPcEbkmlB4WCSFGzZrlqQfZ8wBfMcIZm0/fv6oeudf0dj2nj9/videomix-90s-flashback.mp4" type="video/mp4">
-                Tu navegador no soporta la etiqueta de video.
+                Tu navegador no soporta el elemento de video.
             </video>
         </div>
 
         <div class="video-playlist">
             <p class="title">Lista de Videos</p>
             <div class="videos">
-                <div class="video">
+                <div class="video" data-index="0">
                     <h3>Video 1: 90s Flashback</h3>
                     <img src="https://via.placeholder.com/50" alt="Thumbnail">
                 </div>
-                <div class="video">
+                <div class="video" data-index="1">
                     <h3>Video 2: 90s Techno Pop Mix</h3>
                     <img src="https://via.placeholder.com/50" alt="Thumbnail">
                 </div>
@@ -275,11 +278,13 @@
         const data = [
             {
                 title: '90s Flashback',
-                name: 'videomix-90s-flashback.mp4'
+                name: 'videomix-90s-flashback.mp4',
+                url: 'https://download1655.mediafire.com/601oaobwhjfgjI2p7hlR_62WcNx0ZVLrLMdB50Veee5PC9Zz5TggQBnNPAtdBIoD1Y1S39Mjfr5pciSVrC7E7fM-2S0-E9ImzNpXRtL_ECXWTwq_T1z9ao7zQYaQcsBboydtSghNqU2e5VRPcEbkmlB4WCSFGzZrlqQfZ8wBfMcIZm0/fv6oeudf0dj2nj9/videomix-90s-flashback.mp4'
             },
             {
                 title: '90s Techno Pop Mix',
-                name: '90s-techno-pop-video-mix.mp4'
+                name: '90s-techno-pop-video-mix.mp4',
+                url: 'https://download1334.mediafire.com/ngezxp9t716gEifoZFjq8fRY_TMBEkxf_yJNPpbr658GkGdDufTopLwHRiQbrrjd2w0XJZgOZnaKA_bWPIUwEdCVLFSiWuiyeVgh_d85MxqOk40pOA598b1CCxApw5haXDMBwVdnXlH2mWxWC4ygjikEuvFaiJOz5te5_1eOF0AfDyk/53rcpojvkzo7ab0/90s-techno-pop-video-mix-by-dj-soundhunter.mp4'
             }
         ];
 
@@ -297,7 +302,7 @@
             video.addEventListener('click', () => {
                 document.querySelectorAll('.video-playlist .video').forEach(v => v.classList.remove('active'));
                 video.classList.add('active');
-                mainVideo.src = `https://download1655.mediafire.com/601oaobwhjfgjI2p7hlR_62WcNx0ZVLrLMdB50Veee5PC9Zz5TggQBnNPAtdBIoD1Y1S39Mjfr5pciSVrC7E7fM-2S0-E9ImzNpXRtL_ECXWTwq_T1z9ao7zQYaQcsBboydtSghNqU2e5VRPcEbkmlB4WCSFGzZrlqQfZ8wBfMcIZm0/fv6oeudf0dj2nj9/videomix-90s-flashback.mp4`;
+                mainVideo.src = data[index].url;
                 mainVideoTitle.textContent = data[index].title;
             });
         });
