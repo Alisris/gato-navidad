@@ -10,16 +10,16 @@
     <!-- Open Graph Meta Tags para redes sociales -->
     <meta property="og:title" content="videomix-90s-flashback">
     <meta property="og:description" content="Disfruta de una experiencia visual única con música y recuerdos de los 90s.">
-    <meta property="og:image" content="Dance 90.png"> <!-- Ruta de la imagen -->
+    <meta property="og:image" content="Dance 90.png">
     <meta property="og:image:alt" content="Imagen de Dance 90s">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tusitio.com"> <!-- Reemplaza con tu URL -->
+    <meta property="og:url" content="https://tusitio.com">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="videomix-90s-flashback">
     <meta name="twitter:description" content="Disfruta de una experiencia visual única con música y recuerdos de los 90s.">
-    <meta name="twitter:image" content="Dance 90.png"> <!-- Ruta de la imagen -->
+    <meta name="twitter:image" content="Dance 90.png">
 
     <style>
         /* Establecer el fondo de pantalla negro para todo el cuerpo */
@@ -28,49 +28,107 @@
             padding: 0;
             height: 100%;
             display: flex;
-            justify-content: center; /* Centra el contenido horizontalmente */
-            align-items: center; /* Centra el contenido verticalmente */
-            background-color: black; /* Fondo negro en toda la página */
+            justify-content: center;
+            align-items: center;
+            background-color: black;
             color: white;
-            overflow: hidden; /* Elimina las barras de desplazamiento */
-            flex-direction: column; /* Organiza el contenido en columna */
-            position: relative; /* Necesario para posicionar la nieve */
+            overflow: hidden;
+            flex-direction: column;
+            position: relative;
         }
 
-        /* Nieve dorada - Crear partículas flotantes */
+        /* Estrellas (snowflakes) */
         .snowflake {
             position: absolute;
             top: -10px;
-            background-color: gold; /* Color dorado para la nieve */
+            background-color: gold;
             width: 5px;
             height: 5px;
             border-radius: 50%;
             opacity: 0.8;
-            animation: fall 1.5s linear infinite; /* Animación de caída rápida */
-            pointer-events: none; /* Para que no interfiera con otros elementos */
+            animation: fall 1.5s linear infinite;
+            pointer-events: none;
         }
 
-        /* Animación de caída de la nieve */
         @keyframes fall {
             to {
-                transform: translateY(100vh); /* Hace que caiga hasta el final de la pantalla */
+                transform: translateY(100vh);
             }
         }
 
-        /* Estilo para el contenedor de la barra lateral */
+        /* Rayos */
+        .ray {
+            position: absolute;
+            top: -50px;
+            width: 2px;
+            height: 100px;
+            background-color: white;
+            animation: lightning 1s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes lightning {
+            0% {
+                transform: translateX(0) scaleY(0.5);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: translateX(100vw) scaleY(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(0) scaleY(0.5);
+                opacity: 0.5;
+            }
+        }
+
+        .ray.zigzag {
+            animation: zigzagLightning 1.5s infinite;
+            width: 2px;
+            height: 120px;
+        }
+
+        @keyframes zigzagLightning {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            25% {
+                transform: translateY(20px) translateX(50px);
+            }
+            50% {
+                transform: translateY(40px) translateX(100px);
+            }
+            75% {
+                transform: translateY(20px) translateX(150px);
+            }
+            100% {
+                transform: translateY(0) translateX(200px);
+            }
+        }
+
+        /* Barra lateral */
         .sidebar {
             position: fixed;
             top: 0;
-            left: -250px; /* Inicia fuera de la pantalla */
-            width: 250px; /* Barra lateral más ancha */
-            height: 100%; /* Ajustamos la altura para que no se superponga con el título */
-            background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente */
+            left: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
             display: flex;
             flex-direction: column;
             align-items: stretch;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Sombra sutil para la barra lateral */
-            transition: left 0.3s ease; /* Animación para abrir/cerrar */
-            z-index: 10; /* Asegura que la barra lateral esté por encima de otros elementos */
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            transition: left 0.3s ease;
+            z-index: 10;
+            padding: 20px;
+            overflow-y: hidden; /* Ocultar barra de desplazamiento al inicio */
+        }
+
+        .sidebar.open {
+            left: 0;
+            overflow-y: auto; /* Mostrar barra de desplazamiento cuando se abra */
         }
 
         .sidebar a {
@@ -81,14 +139,13 @@
             width: 100%;
             border-bottom: 1px solid #444;
             transition: background-color 0.3s ease;
-            box-sizing: border-box; /* Asegura que el padding no sobresalga */
         }
 
         .sidebar a:hover {
             background-color: #575757;
         }
 
-        /* Botón para abrir/cerrar la barra lateral */
+        /* Botón de abrir/cerrar la barra lateral */
         .sidebar-toggle {
             position: fixed;
             top: 20px;
@@ -101,21 +158,20 @@
             cursor: pointer;
             border-radius: 50%;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-            z-index: 20; /* Asegura que el botón siempre esté por encima */
+            z-index: 20;
         }
 
-        /* Estilo para el contenedor de iframe (video) */
+        /* Contenedor de iframe (video) */
         .iframe-container {
             position: relative;
-            width: 80vw; /* El contenedor ocupa el 80% del ancho de la pantalla */
-            max-width: 1000px; /* Limitar el ancho máximo */
-            padding-top: 56.25%; /* Mantiene la relación de aspecto 16:9 */
-            background-color: black; /* Fondo negro */
-            overflow: hidden; /* Evita que el video se desborde */
-            margin-top: 80px; /* Mover el video hacia abajo */
-            border-radius: 10px; /* Borde redondeado para el contenedor */
-            transition: width 0.3s ease; /* Animación para reducir el tamaño */
-            z-index: 1; /* Asegura que el contenedor del video esté por encima del fondo */
+            width: 80vw;
+            max-width: 1000px;
+            padding-top: 56.25%; /* Mantener relación 16:9 */
+            background-color: black;
+            overflow: hidden;
+            margin-top: 80px;
+            border-radius: 10px;
+            transition: width 0.3s ease, padding-top 0.3s ease;
         }
 
         iframe {
@@ -128,17 +184,13 @@
             border-radius: 10px;
         }
 
-        /* Estilo para los botones debajo del video */
         .buttons-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 30px; /* Espacio entre el video y los botones */
+            margin-top: 30px;
+            gap: 20px;
             width: 100%;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            z-index: 2; /* Asegura que los botones estén por encima del video */
         }
 
         .change-page-btn {
@@ -148,142 +200,335 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-bottom: 15px;
             font-size: 16px;
-            width: 200px; /* Controla el tamaño del botón */
+            width: 200px;
         }
 
         .change-page-btn:hover {
             background-color: #575757;
         }
 
-        /* Estilo para el título animado */
+        /* Título animado */
         .animated-title {
-            font-size: 24px; /* Reducción del tamaño del texto */
+            font-size: 24px;
             font-family: 'Arial', sans-serif;
             font-weight: bold;
             text-align: center;
             color: white;
-            animation: color-change 2s infinite; /* Aplicamos la animación de cambio de color */
-            position: absolute; /* Hace que el título sea fijo en la parte superior */
-            top: 20px; /* Deja espacio desde la parte superior */
-            width: 100%; /* Asegura que el título ocupe todo el ancho */
+            animation: color-change 2s infinite;
+            position: absolute;
+            top: 20px;
+            width: 100%;
         }
 
-        /* Definir la animación para el cambio de color */
         @keyframes color-change {
             0% {
                 color: red;
             }
+
             20% {
                 color: yellow;
             }
+
             40% {
                 color: green;
             }
+
             60% {
                 color: blue;
             }
+
             80% {
                 color: purple;
             }
+
             100% {
                 color: pink;
             }
         }
 
-        /* Media Queries para Pantallas Móviles */
-        @media screen and (max-width: 768px) {
-            .sidebar {
-                width: 200px; /* Reducir tamaño de la barra lateral en pantallas pequeñas */
-            }
+        .option {
+            margin: 15px 0;
+        }
 
-            .iframe-container {
-                width: 90vw; /* El iframe ocupa el 90% del ancho */
-                padding-top: 56.25%; /* Mantiene la relación de aspecto 16:9 */
-                margin-top: 30px; /* Menos margen en móviles */
-            }
+        /* Estilos para los controles de configuración */
+        .config-title {
+            font-size: 18px;
+            color: white;
+            margin-bottom: 10px;
+        }
 
-            .buttons-container {
-                width: 100%;
-                padding: 0 20px;
-            }
+        .range-slider {
+            width: 100%;
+        }
 
-            .change-page-btn {
-                width: 100%; /* Botón a tamaño completo en móviles */
-            }
+        /* Estilo para el fondo */
+        .background-options {
+            display: flex;
+            flex-direction: column;
+        }
 
-            .sidebar-toggle {
-                font-size: 30px; /* Asegura que el botón sea lo suficientemente grande en móviles */
-                padding: 12px; /* Ajustar padding */
-                top: 15px; /* Ajustar la posición superior */
-                left: 15px; /* Ajustar la posición izquierda */
-            }
+        .background-option {
+            margin: 5px 0;
+            cursor: pointer;
         }
 
     </style>
 </head>
 
 <body>
-
-    <!-- Título animado que cambia de color -->
     <div class="animated-title">videomix-90s-flashback</div>
 
-    <!-- Botón para abrir/cerrar la barra lateral -->
     <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
 
-    <!-- Sidebar con enlaces a Facebook -->
     <div class="sidebar">
         <a href="https://www.facebook.com" target="_blank">Facebook</a>
         <a href="https://www.instagram.com" target="_blank">Instagram</a>
         <a href="https://twitter.com" target="_blank">Twitter</a>
+
+        <!-- Configuración -->
+        <div class="option">
+            <div class="config-title">Tamaño Pantalla</div>
+            <input type="range" id="screen-size" class="range-slider" min="30" max="120" value="80" oninput="adjustScreenSize(this)">
+        </div>
+
+        <div class="option">
+            <div class="config-title">Color Fondo</div>
+            <input type="color" id="bg-color" oninput="changeBackgroundColor(this)">
+        </div>
+
+        <!-- Rayos -->
+        <div class="option">
+            <div class="config-title">Color Rayos</div>
+            <input type="color" id="lightning-color" oninput="changeLightningColor(this)">
+        </div>
+
+        <div class="option">
+            <div class="config-title">Velocidad Rayos</div>
+            <input type="range" id="lightning-speed" class="range-slider" min="1" max="5" value="2" oninput="changeLightningSpeed(this)">
+        </div>
+
+        <!-- Opción para activar/desactivar rayos -->
+        <div class="option">
+            <div class="config-title">Activar Rayos</div>
+            <input type="checkbox" id="toggle-lightning" onchange="toggleLightning(this)">
+            <label for="toggle-lightning">Activar Rayos</label>
+        </div>
+
+        <!-- Selección de tipo de rayo -->
+        <div class="option">
+            <div class="config-title">Tipo de Rayo</div>
+            <select id="lightning-type" onchange="changeLightningType(this)">
+                <option value="line">Rayo Recto</option>
+                <option value="zigzag">Rayo Zigzag</option>
+            </select>
+        </div>
+
+        <!-- Estrellas -->
+        <div class="option">
+            <div class="config-title">Velocidad Estrellas</div>
+            <input type="range" id="star-speed" class="range-slider" min="1" max="5" value="2" oninput="changeStarSpeed(this)">
+        </div>
+
+        <div class="option">
+            <div class="config-title">Tamaño Estrellas</div>
+            <input type="range" id="star-size" class="range-slider" min="3" max="10" value="5" oninput="changeStarSize(this)">
+        </div>
+
+        <div class="option">
+            <div class="config-title">Color Estrellas</div>
+            <input type="color" id="star-color" oninput="changeStarColor(this)">
+        </div>
+
+        <div class="option">
+            <div class="config-title">Mostrar Estrellas</div>
+            <input type="checkbox" id="toggle-stars" onchange="toggleStars(this)">
+            <label for="toggle-stars">Activar Estrellas</label>
+        </div>
+
+        <!-- Cambio de color aleatorio -->
+        <div class="option">
+            <div class="config-title">Cambio de Color Aleatorio</div>
+            <input type="range" id="color-speed" class="range-slider" min="1" max="10" value="5" oninput="changeColorSpeed(this)">
+            <button onclick="startRandomColorChange()">Iniciar Cambio Aleatorio</button>
+        </div>
+
+        <!-- Desactivar Cambio Aleatorio -->
+        <div class="option">
+            <div class="config-title">Desactivar Cambio Aleatorio</div>
+            <input type="checkbox" id="toggle-random-color" onchange="toggleRandomColorChange(this)">
+            <label for="toggle-random-color">Desactivar Cambio Aleatorio</label>
+        </div>
     </div>
 
-    <!-- Contenedor para el video incrustado -->
     <div class="iframe-container">
-        <iframe src="https://workdrive.zohoexternal.com/embed/so9bs6cc7c9458b17407b852d02103e8d6137?toolbar=false&appearance=light&themecolor=green" scrolling="no" frameborder="0" allowfullscreen="true" title="Incrustar código" ></iframe>
+        <iframe src="https://workdrive.zohoexternal.com/embed/so9bs6cc7c9458b17407b852d02103e8d6137?toolbar=false&appearance=light&themecolor=green" scrolling="no" frameborder="0" allowfullscreen="true" title="Incrustar código"></iframe>
     </div>
 
-    <!-- Botones debajo del video -->
-    <div class="buttons-container">
-        <!-- Botón para cambiar de página -->
-        <button onclick="location.href='index1.html'" class="change-page-btn">Siguiente página</button>
+        <!-- Botones debajo del video -->
+        <div class="buttons-container">
+            <!-- Botón para cambiar de página -->
+            <button onclick="location.href='index1.html'" class="change-page-btn">Siguiente página</button>
+    
+            <!-- Botones de Facebook -->
+            <div class="fb-like" data-href="https://www.facebook.com/share/p/fj7nnjjMHb3eevsV//TuPaginaDeFacebook" data-width="150" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
+            <div class="fb-follow" data-href="https://www.facebook.com/share/p/fj7nnjjMHb3eevsV/" data-width="200" data-show-faces="true" data-size="large"></div>
+        </div>
+    
+        <!-- SDK de Facebook -->
+        <div id="fb-root"></div>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v14.0"></script>
 
-        <!-- Botones de Facebook -->
-        <div class="fb-like" data-href="https://www.facebook.com/share/p/fj7nnjjMHb3eevsV//TuPaginaDeFacebook" data-width="150" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
-        <div class="fb-follow" data-href="https://www.facebook.com/share/p/fj7nnjjMHb3eevsV/" data-width="200" data-show-faces="true" data-size="large"></div>
-    </div>
-
-    <!-- SDK de Facebook -->
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v14.0"></script>
-
-    <!-- Función para crear la nieve dorada -->
     <script>
-        for (let i = 0; i < 100; i++) {
-            let snowflake = document.createElement('div');
-            snowflake.classList.add('snowflake');
-            snowflake.style.left = `${Math.random() * 100}vw`; /* Distribuir aleatoriamente */
-            snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`; /* Duración aleatoria */
-            snowflake.style.animationDelay = `${Math.random() * 2}s`; /* Retraso aleatorio */
-            document.body.appendChild(snowflake);
-        }
+        let starSpeed = 2;
+        let starSize = 5;
+        let starColor = 'gold';
+        let starsEnabled = true;
+        let lightningSpeed = 2;
+        let lightningColor = 'white';
+        let lightningType = 'line';
+        let lightningEnabled = true;
+        let colorChangeInterval = null;
+        let colorChangeSpeed = 5;
+        let randomColorEnabled = true;  // Nueva variable para controlar el cambio aleatorio de color
 
-        // Función para abrir y cerrar la barra lateral
         function toggleSidebar() {
             const sidebar = document.querySelector('.sidebar');
             const sidebarToggle = document.querySelector('.sidebar-toggle');
 
-            if (sidebar.style.left === '0px') {
-                sidebar.style.left = '-250px'; // Desplazamos la barra lateral fuera de la pantalla
-                sidebarToggle.innerHTML = '☰'; // Cambiar el icono de nuevo
+            if (sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+                sidebarToggle.innerHTML = '☰';
             } else {
-                sidebar.style.left = '0px'; // Abrir la barra lateral
-                sidebarToggle.innerHTML = '×'; // Cambiar el icono a "X"
+                sidebar.classList.add('open');
+                sidebarToggle.innerHTML = '×';
+            }
+        }
+
+        function adjustScreenSize(slider) {
+            const iframeContainer = document.querySelector('.iframe-container');
+            iframeContainer.style.width = slider.value + 'vw';
+        }
+
+        function changeBackgroundColor(colorPicker) {
+            document.body.style.backgroundColor = colorPicker.value;
+        }
+
+        function changeStarSpeed(slider) {
+            starSpeed = slider.value;
+            updateSnowflakes();
+        }
+
+        function changeStarSize(slider) {
+            starSize = slider.value;
+            updateSnowflakes();
+        }
+
+        function changeStarColor(colorPicker) {
+            starColor = colorPicker.value;
+            updateSnowflakes();
+        }
+
+        function toggleStars(checkbox) {
+            starsEnabled = checkbox.checked;
+            updateSnowflakes();
+        }
+
+        function changeLightningColor(colorPicker) {
+            lightningColor = colorPicker.value;
+            updateLightning();
+        }
+
+        function changeLightningSpeed(slider) {
+            lightningSpeed = slider.value;
+            updateLightning();
+        }
+
+        function toggleLightning(checkbox) {
+            lightningEnabled = checkbox.checked;
+            updateLightning();
+        }
+
+        function changeLightningType(select) {
+            lightningType = select.value;
+            updateLightning();
+        }
+
+        function updateSnowflakes() {
+            const existingSnowflakes = document.querySelectorAll('.snowflake');
+            existingSnowflakes.forEach(snowflake => snowflake.remove());
+
+            if (starsEnabled) {
+                for (let i = 0; i < 100; i++) {
+                    let snowflake = document.createElement('div');
+                    snowflake.classList.add('snowflake');
+                    snowflake.style.left = `${Math.random() * 100}vw`;
+                    snowflake.style.animationDuration = `${Math.random() * 3 + 2 / starSpeed}s`;
+                    snowflake.style.animationDelay = `${Math.random() * 2}s`;
+                    snowflake.style.backgroundColor = starColor;
+                    snowflake.style.width = `${starSize}px`;
+                    snowflake.style.height = `${starSize}px`;
+                    document.body.appendChild(snowflake);
+                }
+            }
+        }
+
+        function updateLightning() {
+            const existingLightning = document.querySelectorAll('.ray');
+            existingLightning.forEach(ray => ray.remove());
+
+            if (lightningEnabled) {
+                for (let i = 0; i < 10; i++) {
+                    let ray = document.createElement('div');
+                    ray.classList.add('ray');
+                    ray.style.backgroundColor = lightningColor;
+
+                    if (lightningType === 'zigzag') {
+                        ray.classList.add('zigzag');
+                    }
+
+                    ray.style.animationDuration = `${Math.random() * 2 + lightningSpeed}s`;
+                    ray.style.animationDelay = `${Math.random() * 2}s`;
+                    ray.style.left = `${Math.random() * 100}vw`;
+                    document.body.appendChild(ray);
+                }
+            }
+        }
+
+        function changeColorSpeed(slider) {
+            colorChangeSpeed = slider.value;
+        }
+
+        function startRandomColorChange() {
+            if (colorChangeInterval) {
+                clearInterval(colorChangeInterval);
+            }
+
+            if (randomColorEnabled) {
+                colorChangeInterval = setInterval(() => {
+                    const randomColor = getRandomColor();
+                    document.body.style.backgroundColor = randomColor;
+                }, 1000 / colorChangeSpeed);
+            }
+        }
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function toggleRandomColorChange(checkbox) {
+            randomColorEnabled = !checkbox.checked;  // Si el checkbox está marcado, desactivar el cambio de color aleatorio
+            if (colorChangeInterval) {
+                clearInterval(colorChangeInterval);
             }
         }
     </script>
-
 </body>
 
 </html>
+
