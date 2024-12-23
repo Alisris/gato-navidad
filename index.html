@@ -37,18 +37,19 @@
             position: relative;
         }
 
-        /* Estrellas (snowflakes) */
-        .snowflake {
-            position: absolute;
-            top: -10px;
-            background-color: gold;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: fall 1.5s linear infinite;
-            pointer-events: none;
-        }
+    /* Estrellas (snowflakes) con puntas */
+.snowflake {
+    position: absolute;
+    top: -10px;
+    background-color: gold;
+    width: 12px;
+    height: 12px;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    opacity: 0.8;
+    animation: fall 1.5s linear infinite;
+    pointer-events: none;
+}
+
 
         @keyframes fall {
             to {
@@ -57,15 +58,72 @@
         }
 
         /* Rayos */
-        .ray {
-            position: absolute;
-            top: -50px;
-            width: 2px;
-            height: 100px;
-            background-color: white;
-            animation: lightning 1s infinite;
-            pointer-events: none;
-        }
+    /* Rayos */
+.ray {
+    position: absolute;
+    top: -50px;
+    width: 2px;
+    height: 100%;
+    background-color: white;
+    opacity: 0.8; /* Reducción de la opacidad para un efecto más tenue */
+    transform-origin: top;
+    animation: lightning 1.5s infinite ease-in-out; /* Aumento de la duración */
+    pointer-events: none;
+    transform-style: preserve-3d;
+    z-index: 1;
+}
+
+@keyframes lightning {
+    0% {
+        transform: translateX(0) scaleY(0.5) rotateZ(0);
+        opacity: 0.5;
+    }
+
+    30% {
+        transform: translateX(20vw) scaleY(1) rotateZ(30deg);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateX(50vw) scaleY(0.7) rotateZ(90deg);
+        opacity: 0.9;
+    }
+
+    70% {
+        transform: translateX(80vw) scaleY(1.2) rotateZ(180deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(100vw) scaleY(0.5) rotateZ(-90deg);
+        opacity: 0.5;
+    }
+}
+
+.ray.zigzag {
+    animation: zigzagLightning 1.5s infinite ease-in-out; /* Cambié la duración y la transición */
+    width: 2px;
+    height: 120vh;
+}
+
+@keyframes zigzagLightning {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+    25% {
+        transform: translateY(20px) translateX(50px);
+    }
+    50% {
+        transform: translateY(40px) translateX(100px);
+    }
+    75% {
+        transform: translateY(20px) translateX(150px);
+    }
+    100% {
+        transform: translateY(0) translateX(200px);
+    }
+}
+
 
         @keyframes lightning {
             0% {
@@ -531,4 +589,3 @@
 </body>
 
 </html>
-
