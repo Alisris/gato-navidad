@@ -59,6 +59,111 @@
 
         /* Rayos */
     /* Rayos */
+/* Rayo Curvado */
+@keyframes curvedLightning {
+    0% {
+        transform: translateY(0) translateX(0) scaleY(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(50vh) translateX(20vw) scaleY(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) translateX(-20vw) scaleY(1.2);
+        opacity: 0;
+    }
+}
+
+.ray.curved {
+    animation: curvedLightning 3s infinite ease-in-out;
+    width: 2px;
+    background-color: white;
+    opacity: 0.8;
+    position: absolute;
+    top: -50px;
+    pointer-events: none;
+}
+
+/* Rayo Aleatorio */
+@keyframes randomLightning {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.ray.random {
+    animation: randomLightning 2s infinite linear;
+    width: 2px;
+    background-color: white;
+    opacity: 0.8;
+    position: absolute;
+    top: -50px;
+    pointer-events: none;
+}
+
+/* Rayo Estático */
+.ray.static {
+    width: 2px;
+    background-color: white;
+    opacity: 0.8;
+    position: absolute;
+    top: -50px;
+    pointer-events: none;
+}
+
+/* Rayo Desintegrante */
+@keyframes disintegratingLightning {
+    0% {
+        opacity: 1;
+        height: 10px;
+    }
+    100% {
+        opacity: 0;
+        height: 0;
+    }
+}
+
+.ray.disintegrating {
+    animation: disintegratingLightning 2s forwards;
+    width: 2px;
+    background-color: white;
+    position: absolute;
+    top: -50px;
+    pointer-events: none;
+}
+
+/* Rayo Onda */
+@keyframes waveLightning {
+    0% {
+        transform: translateY(0) scaleX(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(50vh) scaleX(1.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) scaleX(1);
+        opacity: 0;
+    }
+}
+
+.ray.wave {
+    animation: waveLightning 2s infinite ease-in-out;
+    width: 2px;
+    background-color: white;
+    opacity: 0.8;
+    position: absolute;
+    top: -50px;
+    pointer-events: none;
+}
+
 .ray {
     position: absolute;
     top: -50px;
@@ -379,8 +484,17 @@
             <select id="lightning-type" onchange="changeLightningType(this)">
                 <option value="line">Rayo Recto</option>
                 <option value="zigzag">Rayo Zigzag</option>
+                <option value="spiral">Rayo Espiral</option>
+                <option value="curved">Rayo Curvado</option>  <!-- Nueva opción -->
+                <option value="random">Rayo Aleatorio</option> <!-- Nueva opción -->
+                <option value="static">Rayo Estático</option> <!-- Nueva opción -->
+                <option value="disintegrating">Rayo Desintegrante</option> <!-- Nueva opción -->
+                <option value="wave">Rayo Onda</option> <!-- Nueva opción -->
+                
             </select>
         </div>
+
+        
 
         <!-- Estrellas -->
         <div class="option">
@@ -436,7 +550,42 @@
         <!-- SDK de Facebook -->
         <div id="fb-root"></div>
         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v14.0"></script>
+        <script>
+            function updateLightning() {
+    const existingLightning = document.querySelectorAll('.ray');
+    existingLightning.forEach(ray => ray.remove());
 
+    if (lightningEnabled) {
+        for (let i = 0; i < 10; i++) {
+            let ray = document.createElement('div');
+            ray.classList.add('ray');
+            ray.style.backgroundColor = lightningColor;
+
+            if (lightningType === 'zigzag') {
+                ray.classList.add('zigzag');
+            } else if (lightningType === 'spiral') {
+                ray.classList.add('spiral');
+            } else if (lightningType === 'curved') {
+                ray.classList.add('curved');
+            } else if (lightningType === 'random') {
+                ray.classList.add('random');
+            } else if (lightningType === 'static') {
+                ray.classList.add('static');
+            } else if (lightningType === 'disintegrating') {
+                ray.classList.add('disintegrating');
+            } else if (lightningType === 'wave') {
+                ray.classList.add('wave');
+            }
+
+            ray.style.animationDuration = `${Math.random() * 2 + lightningSpeed}s`;
+            ray.style.animationDelay = `${Math.random() * 2}s`;
+            ray.style.left = `${Math.random() * 100}vw`;
+            document.body.appendChild(ray);
+        }
+    }
+}
+
+               </script>
     <script>
         let starSpeed = 2;
         let starSize = 5;
@@ -586,6 +735,8 @@
             }
         }
     </script>
+
+    
 </body>
 
 </html>
